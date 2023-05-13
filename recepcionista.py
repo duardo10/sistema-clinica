@@ -8,4 +8,12 @@ class Recepcionista(Funcionario):
     def __init__(self, cpf, nome, telefone, dt_nasc, email):
         super().__init__(cpf, nome, telefone, dt_nasc, email)
 
+    def imprimir(self):
+        print('CPF: ', self._cpf)
+        print('Nome: ', self._nome)
+        print('Telefone: ', self._telefone)
+        print('Data de nascimento: ', self._dt_nasc)
+        print('Email: ',self._email)
+
+    
     
