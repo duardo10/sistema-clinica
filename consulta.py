@@ -45,13 +45,11 @@ class Consulta():
         else:
             return False
 
-    def enviar_consulta(self, dc_consulta, lista_pacientes):
+    def enviar_consulta(self, dc_consulta):
         # A função de enviar uma consulta recebe como parâmetro uma consulta que deve ser enviada pelo recepcionista para o
         # médico responsável pelo paciente.
         for valor in dc_consulta.values():
-            if valor._nome_paciente not in lista_pacientes:
-                lista_pacientes.append(valor._nome_paciente)
-        return lista_pacientes
+            return self._nome_paciente
 
 
 

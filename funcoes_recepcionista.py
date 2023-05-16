@@ -9,6 +9,8 @@ dc_recepcionista = {}
 dc_medico = {}
 dc_funcionarios = {}
 dc_consulta = {}
+dc_pacientes = {}
+lista_pacientes = []
 
 
 def menu_atendimento():
@@ -45,6 +47,7 @@ def atendimento():
         
         elif op == 3:
             print('Encerrando expediente!\n')
+            break
         else:
             print('Escolha uma opção do menu!')
 
@@ -130,7 +133,6 @@ def menu_consulta():
     print('-'*30)
 
 def consulta():
-    lista_pacientes = []
     while True:
         menu_consulta()
         opc = int(input('Opcao: '))
@@ -169,11 +171,15 @@ def consulta():
                     break
             """
         elif opc == 2:
-            cpf = input('CPF:')
+            cpf = input('CPF do paciente:')
             if cpf in dc_consulta.keys():
-                lista = dc_consulta[cpf].enviar_consulta(dc_consulta, lista_pacientes)
-                dc_medico = lista
-                print(dc_medico)
+                nome = input('Nome do médico: ')
+                if nome in dc_medico.keys() and nome == consulta._medico:
+                    nome_paciente = dc_consulta[cpf].enviar_consulta(dc_consulta)
+                    dc_pacientes[cpf] = nome_paciente
+                    print(dc_pacientes)
+                else:
+                    print('Nome do médico não corresponde ao nome do médico cadastrado na consulta')
             else:
                 print('CPF não encontrado!')
         
@@ -181,7 +187,7 @@ def consulta():
             print(dc_consulta)
             cpf_paciente = input('CPF: ')
             if cpf_paciente in dc_consulta.keys():            
-                retorno = dc_consulta[cpf].excluir_consulta(cpf_paciente, dc_consulta)
+                retorno = dc_consulta[cpf_paciente].excluir_consulta(cpf_paciente, dc_consulta)
                 print('Excluido:')
                 if retorno == False:
                     print('CPF não encontrado')
@@ -236,7 +242,7 @@ def menu_imprimir():
     print('7 - encerrar impressão')
     print('-'*30)
 
-def imprimir():
+def imprimir_dados():
     while True:
         menu_imprimir()
         opc = int(input('Opção: '))
@@ -252,10 +258,10 @@ def imprimir():
 
         # A opção 2 tem como objetivo buscar e imprimir os dados de um médico
         elif opc == 2:
-            cpf = input('Digite o CPF do Médico: ')
+            nome = input('Digite o nome do Médico: ')
             for chave in dc_medico.keys():
-                if chave == cpf:
-                    dc_medico[cpf].imprimir()
+                if chave == nome:
+                    dc_medico[nome].imprimir()
                 else:
                     print('CPF não encontrado')
             
@@ -284,8 +290,8 @@ def imprimir():
             if len(dc_medico) > 0:
                 for chave, valor in dc_medico.items():
                     print('\nMedico')
-                    print('CPF: ', chave)
-                    print('Nome: ', valor._nome)
+                    print('CPF: ', valor._cpf)
+                    print('Nome: ', chave)
                     print('Telefone: ', valor._telefone)
                     print('Data de nascimento: ', valor._dt_nasc)
                     print('Email: ', valor._email)
@@ -319,7 +325,25 @@ def verifica_vagas(medico):
         else:
             print('Esgotado')
 
-   
+
+"""
+=====FUNÇÕES DO MÉDICO======
+"""
+
+def imprimir_lista_pacientes():
+    nome = input('nome do medico: ')
+    if nome in dc_medico.keys():
+        dc_medico[nome].imprimir_lista_de_pacientes(dc_pacientes)
+    else:
+        print('Nome não encontrado')
+
+def excluir_paciente_lista():
+    cpf = input('CPF: ')  
+    if cpf in dc_pacientes.keys():
+        del(dc_pacientes[cpf])
+        print('paciente atendido!')
+    else:
+        print('Paciente não esta na lista')
 """
 def verifica_vagas():
     print(dc_medico)

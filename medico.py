@@ -38,27 +38,10 @@ class Medico(Funcionario):
         print('Hora de atendimento: ', self._hr_atendimento)
         print('CRM: ', self._crm)
     
-    def imprimir_lista_de_pacientes(self, lista_paciente):
-        for paciente in lista_paciente:
+    def imprimir_lista_de_pacientes(self, dc_pacientes):
+        for paciente in dc_pacientes.values():
             print(paciente)
 
-
-    def excluir(self, nome, lista_paciente):
-        """
-        Na função de excluir o médico responsável irá excluir na sua lista os pacientes que já foram atendidos por ele 
-        #parâmetros:#
-            lista_paciente
-            nome
-        A lista de paciente contém os pacientes que irão ser atendidos naquele dia de trabalho.
-        #retorno:#
-            lista_paciente 
-        O retorno da função é a lista depois de ter excluido o paciente que foi atendido
-        """
-        if nome in lista_paciente:
-            lista_paciente.remove(nome)
-            return lista_paciente
-        else:
-            print('Paciennte não encontrado')
 
         
 

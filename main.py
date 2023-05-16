@@ -1,5 +1,5 @@
 from funcoes_recepcionista import *
-from funcoes_medico import *
+
 
 
 def menu_principal():
@@ -56,7 +56,7 @@ while True:
             if op == 3:
                 consulta()
             if op == 4:
-                imprimir()
+                imprimir_dados()
             if op == 5:
                 break
     elif op == 3:
