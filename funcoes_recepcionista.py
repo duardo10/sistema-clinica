@@ -74,7 +74,7 @@ def cadastro():
                 email = input('Email: ')
             except:
                 print('Dados invalidos')
-
+            
             recepcionista = Recepcionista(cpf, nome, telefone, dt_nasc, email)
             dc_recepcionista[cpf] = recepcionista
             print('Recepcionista Cadastrado com sucesso!')
