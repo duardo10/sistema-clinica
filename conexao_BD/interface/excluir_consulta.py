@@ -215,8 +215,8 @@ class ExcluirConsulta(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "EXCLUIR CONSULTA"))
-        self.pushButton_2.setText(_translate("MainWindow", "EXCLUIR"))
+        self.label.setText(_translate("MainWindow", "FINALIZAR CONSULTA"))
+        self.pushButton_2.setText(_translate("MainWindow", "FINALIZAR"))
         self.pushButton_3.setText(_translate("MainWindow", "VOLTAR"))
         self.label_3.setText(_translate("MainWindow", "NOME DO PACIENTE:"))
         self.label_11.setText(_translate("MainWindow", "TELEFONE:"))

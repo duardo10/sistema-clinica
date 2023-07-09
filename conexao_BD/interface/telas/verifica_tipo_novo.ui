@@ -166,6 +166,38 @@ QPushButton:hover {
      <string>VERIFICAR</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>330</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: white;  /* Cor de fundo */
+    color: rgb(65, 150, 183);  /* Cor do texto */
+    border-radius: 10px;  /* Raio dos cantos */
+    padding: 10px 20px;  /* Preenchimento interno */
+}
+
+QPushButton:hover {
+    color: white;
+    background-color: rgb(8, 113, 155);  /* Cor de fundo ao passar o mouse */
+}</string>
+    </property>
+    <property name="text">
+     <string>ENVIAR</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

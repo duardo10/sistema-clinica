@@ -224,7 +224,7 @@ class ExcluirConsulta(object):
         self.label_5.setText(_translate("MainWindow", "MEDICO:"))
         self.label_6.setText(_translate("MainWindow", "CRM:"))
         self.label_7.setText(_translate("MainWindow", "TIPO DA CONSULTA:"))
-        self.label_9.setText(_translate("MainWindow", "QUANTIDADE DE VAGAS:"))
+        self.label_9.setText(_translate("MainWindow", "HORA DE CONSULTA:"))
         self.label_10.setText(_translate("MainWindow", "CPF MEDICO:"))
         self.label_8.setText(_translate("MainWindow", "CPF RECEPCIONISTA:"))
         self.label_2.setText(_translate("MainWindow", "CPF DO PACIENTE:"))

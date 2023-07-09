@@ -53,7 +53,7 @@ cliente_socket.connect(addr)
 
 import socket
 ip = 'localhost'
-port = 8006
+port = 8008
 addr = ((ip, port))
 
 cliente_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -309,17 +309,10 @@ class Main(QMainWindow, Ui_main):
         self.finalizar_atendimento.pushButton_2.clicked.connect(self.abrirAtendimento)
         self.tela_atendimento.pushButton_3.clicked.connect(self.abrirAddGuiche)
         self.adicionar_guiche.pushButton.clicked.connect(self.addGuiche)
-        self.tela_atendimento.pushButton_7.clicked.connect(self.abrirExcluirGuiche)
-        self.excluir_guiche.pushButton.clicked.connect(self.buscarGuiche)
-        self.excluir_guiche.pushButton_2.clicked.connect(self.excluirGuiche)
-        self.excluir_guiche.pushButton_3.clicked.connect(self.abrirAtendimento)
+        self.tela_atendimento.pushButton_7.clicked.connect(self.excluirGuiche)
         self.adicionar_guiche.pushButton_2.clicked.connect(self.abrirAtendimento)
-        self.tela_atendimento.pushButton_4.clicked.connect(self.abrirativarGuiche)
-        self.ativar_guiche.pushButton.clicked.connect(self.ativarGuiche)
-        self.ativar_guiche.pushButton_2.clicked.connect(self.abrirAtendimento)
-        self.tela_atendimento.pushButton_6.clicked.connect(self.abrirdesativaGuiche)
-        self.desativa_guiche.pushButton.clicked.connect(self.desativar_Guiche)
-        self.desativa_guiche.pushButton_2.clicked.connect(self.abrirAtendimento)
+        self.tela_atendimento.pushButton_4.clicked.connect(self.ativarGuiche)
+        self.tela_atendimento.pushButton_6.clicked.connect(self.desativar_Guiche)
         self.tela_atendimento.pushButton_5.clicked.connect(self.abrirTelaRecepcionista)
 
         # tela do recepcionista = tela de consulta
@@ -341,8 +334,8 @@ class Main(QMainWindow, Ui_main):
         self.lista_pacientes.pushButton_2.clicked.connect(self.excluiPacientes)
         self.lista_pacientes.pushButton_3.clicked.connect(self.abrirTelaMedico)
         #self.tela_medico.pushButton_2.clicked.connect(self.abrirExcluirPac)
-        self.excluir_pacientes.pushButton.clicked.connect(self.excluirPaciente)
-        self.excluir_pacientes.pushButton_2.clicked.connect(self.abrirTelaMedico)
+        #self.excluir_pacientes.pushButton.clicked.connect(self.excluirPaciente)
+        #self.excluir_pacientes.pushButton_2.clicked.connect(self.abrirTelaMedico)
         self.atualizar_consulta.pushButton_3.clicked.connect(self.buscConsult)
         self.atualizar_consulta.pushButton.clicked.connect(self.atualizarConsulta)
         self.atualizar_consulta.pushButton_2.clicked.connect(self.abrirTelaMedico)
@@ -570,7 +563,7 @@ class Main(QMainWindow, Ui_main):
         # verifico se todos os dados foram preenchidos
         if not(cpf=='' or nome=='' or telefone=='' or dt_nasc=='' or email=='' or senha==''):
             # mensssagem do cliente
-            try:
+            try: 
                 menssagem =  f'cad_recep,{cpf},{nome},{telefone},{dt_nasc},{email},{senha}'
                 cliente_socket.send(menssagem.encode())
                 print('menssagem enviada')
@@ -607,7 +600,28 @@ class Main(QMainWindow, Ui_main):
 
         if not(cpf_admin=='' or nome=='' or senha==''):
             # menssagem do cliente
-            pass
+            try:
+                menssagem =  f'cad_admin,{cpf_admin},{nome},{senha}'
+                cliente_socket.send(menssagem.encode())
+                print('menssagem enviada')
+                recebida = cliente_socket.recv(1024).decode()
+                # servidor retorna 1 para verdadeiro e 0 para falso
+                if recebida == '1':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro realizado com sucesso!')
+                    #limpar os dados
+                    self.cadastrar_admin.lineEdit.setText("")
+                    self.cadastrar_admin.lineEdit_2.setText("")
+                    self.cadastrar_admin.lineEdit_3.setText("")
+                elif recebida == '0':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'CPF ja cadastrado!')
+                
+                elif recebida == '3':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'CPF ja cadastrado!')
+
+                else:
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+            except:
+                QtWidgets.QMessageBox.information(None, 'interface', 'Erro: CPF já cadastrado!')
     
         else:
             # imprime uma menssagem de erro
@@ -615,12 +629,38 @@ class Main(QMainWindow, Ui_main):
 
     def iniciarAtendimento(self):
         # menssagem do cliente
-        pass
+        menssagem =  'atendimento'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        print('recebida')
+        print(recebida)
+        if recebida == '0':
+            QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+        elif recebida == '3':
+            QtWidgets.QMessageBox.critical(None, 'interface','guiche está ocupado.', QMessageBox.Ok)
+        elif recebida == '2':
+            QtWidgets.QMessageBox.critical(None, 'interface','guiche está Inativo.', QMessageBox.Ok)
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', str(recebida), QMessageBox.Ok)
+
+            
         #self.gui.iniciar_atendimento(login_atual_Recep)
 
     def finalizarAtendimento(self):
         # menssagem do cliente
-        pass
+        menssagem =  'finalizar_atendimento'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        print('recebida')
+        print(recebida)
+        if recebida == '2':
+            QtWidgets.QMessageBox.critical(None, 'interface','O guiche já está livre.', QMessageBox.Ok)
+        elif recebida == '0':
+            QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', recebida, QMessageBox.Ok)
         #self.gui.finalizar_atendimento(login_atual_Recep)
 
     def addGuiche(self):
@@ -630,36 +670,107 @@ class Main(QMainWindow, Ui_main):
         
         if not(senha=='' or status=='' or modo==''):
             # menssagem do cliente
-            pass
+            try:
+                menssagem =  f'adicionaguiche,{status},{senha},{modo}'
+                cliente_socket.send(menssagem.encode())
+                print('menssagem enviada')
+                recebida = cliente_socket.recv(1024).decode()
+                print('recebida:',recebida)
+                # servidor retorna 1 para verdadeiro e 0 para falso
+                if recebida == '1':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Guiche adicionado!')
+                    #limpar os dados
+                    self.adicionar_guiche.lineEdit.setText("")
+                    self.adicionar_guiche.lineEdit_2.setText("")
+                    self.adicionar_guiche.lineEdit_3.setText("")
+                elif recebida == '0':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Recepcionista ja está cadastrado em um guiche')
+                
+                elif recebida == '2':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Erro: Não foi possivel adicionar o guiche!')
+                else:
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+            except:
+                QtWidgets.QMessageBox.information(None, 'interface', 'Erro: Não foi possivel adicionar o guiche!')
         else:
             # imprime uma menssagem de erro
             QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não adicionado! informe todos os campos.')
 
     def excluirGuiche(self):
-        id_guiche = self.excluir_guiche.lineEdit.text()
-        pass
+        menssagem =  'excluiguiche'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        print('recebida')
+        print(recebida)
+        if recebida == '1':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche excluido')
+        elif recebida == '0':
+            QtWidgets.QMessageBox.information(None, 'interface', 'O Guiche já está ATIVO')
+        elif recebida == '2':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não encontrado!')
+        elif recebida == '3':
+            QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+        
         #self.gui.excluir_guiche(id_guiche)
         #self.excluir_guiche.lineEdit.setText('')
     
     def ativarGuiche(self):
-            ident_guiche = self.ativar_guiche.lineEdit.text()
-            # menssagem do cliente
-            #retorno = self.gui.ativarGuiche(ident_guiche)
-            #self.ativar_guiche.lineEdit.setText("")
-            pass
+            menssagem =  'ativarguiche'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode()
+            print('recebida')
+            print(recebida)
+            if recebida == '1':
+                QtWidgets.QMessageBox.information(None, 'interface', 'Guiche ATIVADO!')
+            elif recebida == '0':
+                QtWidgets.QMessageBox.information(None, 'interface', 'O Guiche já está ATIVO')
+            elif recebida == '2':
+                QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não encontrado!')
+            elif recebida == '3':
+                QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+            else:
+                QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+
     
     def desativar_Guiche(self):
-        ident_guiche = self.desativa_guiche.lineEdit.text()
-        #retorno = self.gui.desativarGuiche(ident_guiche)
-        self.desativa_guiche.lineEdit.setText("")
-        # menssagem do cliente
-        pass
+        menssagem =  'desativarguiche'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        print('recebida')
+        print(recebida)
+        if recebida == '1':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche DESATIVADO!')
+        elif recebida == '0':
+            QtWidgets.QMessageBox.information(None, 'interface', 'O Guiche já está INATIVO')
+        elif recebida == '2':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não encontrado!')
+        elif recebida == '3':
+            QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
 
     def imprimirRecep(self):            
         cpf = self.imprimir_recepcionista.lineEdit_5.text()
         if not(cpf==''):
             # menssagem do cliente
-            pass
+            menssagem =  f'imprecep,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida:',recebida)
+            if recebida[0] == '1':
+                self.imprimir_recepcionista.lineEdit_6.setText(recebida[1])
+                self.imprimir_recepcionista.lineEdit_7.setText(recebida[2])
+                self.imprimir_recepcionista.lineEdit_8.setText(recebida[3])
+                self.imprimir_recepcionista.lineEdit_10.setText(recebida[4])
+                self.imprimir_recepcionista.lineEdit_11.setText(recebida[5])
+            else:
+                QtWidgets.QMessageBox.warning(None, "interface_grafica", 'Nenhum recepcionista foi registrada com este CPF.')
         else:
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo CPF não foi preenchido! Informe um CPF.')
 
@@ -667,7 +778,22 @@ class Main(QMainWindow, Ui_main):
         cpf = self.imprimir_medico.lineEdit_5.text()
         if not(cpf==''):
             # menssagem do cliente
-            pass
+            menssagem =  f'impmedico,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida:',recebida)
+            if recebida[0] == '1':
+                self.imprimir_medico.lineEdit_16.setText(recebida[1])
+                self.imprimir_medico.lineEdit_17.setText(recebida[2])
+                self.imprimir_medico.lineEdit_18.setText(recebida[3])
+                self.imprimir_medico.lineEdit_19.setText(recebida[4])
+                self.imprimir_medico.lineEdit_20.setText(recebida[5])
+                self.imprimir_medico.lineEdit_21.setText(recebida[6])
+                self.imprimir_medico.lineEdit_22.setText(str(recebida[7]))
+                self.imprimir_medico.lineEdit_24.setText(recebida[8])
+            else:
+                QtWidgets.QMessageBox.warning(None, "interface_grafica", 'Nenhum medico foi registrada com este CPF.')
         else:
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo CPF não foi preenchido! Informe um CPF.')
     
@@ -680,30 +806,103 @@ class Main(QMainWindow, Ui_main):
         
         crm = self.realizar_consulta.lineEdit_6.text()
         tipo = self.realizar_consulta.lineEdit_7.text()
-        qtd_vagas = self.realizar_consulta.lineEdit_8.text()
+        #qtd_vagas = self.realizar_consulta.lineEdit_8.text()
         cpf_medico = self.realizar_consulta.lineEdit_9.text()
         cpf_recepcionista = self.realizar_consulta.lineEdit_10.text()
 
     
         # verifico se todos os dados foram preenchidos
-        if not(cpf_paciente=='' or nome_paciente=='' or telefone=='' or dt_nasc=='' or medico=='' or crm=='' or tipo=='' or qtd_vagas=='' or cpf_medico=='' or cpf_recepcionista==''):
+        if not(cpf_paciente=='' or nome_paciente=='' or telefone=='' or dt_nasc=='' or medico=='' or crm=='' or tipo=='' or cpf_medico=='' or cpf_recepcionista==''):
             # TEM QUE VERIFICAR OS DADOS DA CHAVE ESTRANGEIRA
             # menssagem do cliente
-            pass
+            try:
+                menssagem =  f'realizarconsult,{cpf_paciente},{nome_paciente},{telefone},{dt_nasc},{medico},{crm},{tipo},{cpf_medico},{cpf_recepcionista}'
+                cliente_socket.send(menssagem.encode())
+                print('menssagem enviada')
+                recebida = cliente_socket.recv(1024).decode()
+                print('recebida',recebida)
+                # servidor retorna 1 para verdadeiro e 0 para falso
+                if recebida == '1':
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Consulta realizada com sucesso!')
+                    #limpar os dados
+                    self.realizar_consulta.lineEdit.setText("")
+                    self.realizar_consulta.lineEdit_2.setText("")
+                    self.realizar_consulta.lineEdit_3.setText("")
+                    self.realizar_consulta.lineEdit_4.setText("")
+                    #self.realizar_consulta.comboBox.setCurrentIndex(0)
+                    self.realizar_consulta.lineEdit_6.setText("")
+                    self.realizar_consulta.lineEdit_7.setText("")
+                    #self.realizar_consulta.lineEdit_8.setText("")
+                    self.realizar_consulta.lineEdit_9.setText("")
+                    self.realizar_consulta.lineEdit_10.setText("")
+
+                elif recebida == '2':
+                    QtWidgets.QMessageBox.warning(None, "interface", 'Consulta não realizada')
+                elif recebida == '3':
+                    QtWidgets.QMessageBox.warning(None, "interface", 'Dados do MÉDICO e do RECEPCIONISTA estão errados! verifique os campos.')
+                elif recebida == '4':
+                    QtWidgets.QMessageBox.warning(None, "interface", 'Dados do MÉDICO estão errados! verifique os campos.')
+                elif recebida == '5':
+                    QtWidgets.QMessageBox.warning(None, "interface", 'Dados do RECEPCIONISTA estão errados! verifique os campos.')
+                else:
+                    QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+            except:
+                QtWidgets.QMessageBox.information(None, 'interface', 'Erro: Impossivel de realizar consulta!')
         else:
             # imprime uma menssagem de erro
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
     
     def enviarConsulta(self):
         # menssagem do cliente
-        pass
-        #self.consult.enviar_consulta()
+
+        menssagem =  f'enviarconsult'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        print('recebida:',recebida)
+        if recebida == '1':
+            QtWidgets.QMessageBox.information(None, "interface", 'Paciente enviado para a lista de pacientes')
+            #QtWidgets.QMessageBox.information(None, 'interface', 'Erro: O paciente ja esta na lista de pacientes!')
+        #elif recebida == '2':
+            #QtWidgets.QMessageBox.information(None, 'interface', 'Eroo ao atualizar a quantidade de vagas de um medico no banco de dados')
+        elif recebida == '3':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Erro: Paciente não enviado!') 
+        elif recebida == '4':
+            QtWidgets.QMessageBox.warning(None, "interface", 'Dados do Médico estão errados! verifique os campos.') 
+        elif recebida == '5':
+            QtWidgets.QMessageBox.warning(None, "interface", 'O paciente já está na lista de pacientes do médico!')
+        elif recebida == '6':
+            QtWidgets.QMessageBox.warning(None, "interface", 'O recepcionista não cadastrou nenhuma consulta!')
+        elif recebida == '0':
+            QtWidgets.QMessageBox.warning(None, "interface", 'Erro: ao enviar uma consulta!')
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', 'Erro: NÃO ENVIOU!')
+            #QtWidgets.QMessageBox.information(None, "interface", 'Paciente enviado para a lista de pacientes')
+            #QtWidgets.QMessageBox.information(None, 'interface', f'{recebida}')
+       
+
 
     def buscCons(self):
         cpf = self.excluir_consulta.lineEdit.text()
         if not(cpf==''):
             # menssagem do usuario
-            pass
+            menssagem =  f'busconsult,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida: ',recebida)
+            if recebida[0] == '1':
+                self.excluir_consulta.lineEdit_2.setText(recebida[1])
+                self.excluir_consulta.lineEdit_3.setText(recebida[2])
+                self.excluir_consulta.lineEdit_4.setText(recebida[3])
+                self.excluir_consulta.lineEdit_5.setText(recebida[4])
+                self.excluir_consulta.lineEdit_6.setText(str(recebida[5]))
+                self.excluir_consulta.lineEdit_7.setText(recebida[6])
+                self.excluir_consulta.lineEdit_8.setText(str(recebida[7]))
+                self.excluir_consulta.lineEdit_9.setText(recebida[8])
+                self.excluir_consulta.lineEdit_10.setText(recebida[9])
+            else:
+                QtWidgets.QMessageBox.warning(None, "interface_grafica", 'Nenhum paciente foi registrada com este CPF.')
         
         else:
             # imprime uma menssagem de erro
@@ -713,77 +912,127 @@ class Main(QMainWindow, Ui_main):
         # menssagem do cliente
         # INFORMAÇÕES DA TELA
         cpf = self.excluir_consulta.lineEdit.text()
-        self.consult.excluir_consulta(cpf)
-        self.excluir_consulta.lineEdit_2.setText('')
-        self.excluir_consulta.lineEdit_3.setText('')
-        self.excluir_consulta.lineEdit_4.setText('')
-        self.excluir_consulta.lineEdit_5.setText('')
-        self.excluir_consulta.lineEdit_6.setText('')
-        self.excluir_consulta.lineEdit_7.setText('')
-        self.excluir_consulta.lineEdit_8.setText('')
-        self.excluir_consulta.lineEdit_9.setText('')
-        self.excluir_consulta.lineEdit_10.setText('')
+        menssagem =  f'excluirconsult,{cpf}'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode().split(",")
+        print('recebida: ',recebida)
+        if recebida[0] == '1':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Dado excluido')
+            self.excluir_consulta.lineEdit.setText('')
+            self.excluir_consulta.lineEdit_2.setText('')
+            self.excluir_consulta.lineEdit_3.setText('')
+            self.excluir_consulta.lineEdit_4.setText('')
+            self.excluir_consulta.lineEdit_5.setText('')
+            self.excluir_consulta.lineEdit_6.setText('')
+            self.excluir_consulta.lineEdit_7.setText('')
+            #self.excluir_consulta.lineEdit_8.setText('')
+            self.excluir_consulta.lineEdit_9.setText('')
+            self.excluir_consulta.lineEdit_10.setText('')
+        elif recebida[0] == '0':
+            QtWidgets.QMessageBox.information(None, 'interface','Paciente não encontrado!')
+        
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', 'Eroo ao excluir um dado')
 
     def verificaTipo(self):
         cpf = self.verifica_tipo.lineEdit.text()
         if not(cpf==''):
             # menssagem do cliente
-            pass
+            menssagem =  f'verificartipo,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode()
+            print('recebida: ',recebida)
+            if recebida == '1':
+                QtWidgets.QMessageBox.information(None, 'interface', 'Nova Consulta! Valor = R$:300,00')
+            elif recebida == '0':
+                QtWidgets.QMessageBox.information(None, 'interface', 'Retorno! Valor = Gratuito.')
+            else:
+                QtWidgets.QMessageBox.information(None, 'interface', 'CPF não encontrado')
         else:
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo não preenchido! Imforme um CPF.')
 
     def buscPacMed(self):
         #menssagem do cliente
         pass
-
-    def excluirPaciente(self):
-        cpf = self.excluir_pacientes.lineEdit.text()
-        if not(cpf==''):
-            # menssagem do cliente
-            pass
-        else:
-            QtWidgets.QMessageBox.information(None, 'interface', 'Campo não preenchido! Imforme um CPF.')
     
-    def buscarGuiche(self):
-        id_guiche = self.excluir_guiche.lineEdit.text()
-        if not(id_guiche==''):
-            # menssagem do cliente
-            pass
-        else:
-            # imprime uma menssagem de erro
-            QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o ID do guiche.')
-
-    def excluirGuiche(self):
-        # menssagem do cliente
-        pass
-
+    
     def buscConsult(self):
         cpf = self.atualizar_consulta.lineEdit_11.text()
         if not(cpf==''):
             # menssagem do cliente
-            pass
+            # menssagem do usuario
+            menssagem =  f'bconsult,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida: ',recebida)
+            if recebida[0] == '1':
+                self.atualizar_consulta.lineEdit_2.setText(recebida[1])
+                self.atualizar_consulta.lineEdit_3.setText(recebida[2])
+                self.atualizar_consulta.lineEdit_4.setText(recebida[3])
+                self.atualizar_consulta.lineEdit_5.setText(recebida[4])
+                self.atualizar_consulta.lineEdit_6.setText(str(recebida[5]))
+                self.atualizar_consulta.lineEdit_7.setText(recebida[6])
+                #self.atualizar_consulta.lineEdit_8.setText(str(recebida[7]))
+                self.atualizar_consulta.lineEdit_9.setText(recebida[7])
+                self.atualizar_consulta.lineEdit_10.setText(recebida[8])
+            else:
+                QtWidgets.QMessageBox.warning(None, "interface_grafica", 'Nenhum paciente foi registrada com este CPF.')
         else:
             # imprime uma menssagem de erro
             QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o CPF.')
 
     def atualizarConsulta(self):
         cpf = self.atualizar_consulta.lineEdit_11.text()
-        #self.med.atualizaConsulta(cpf)
-        self.atualizar_consulta.lineEdit_11.setText('')
-        self.atualizar_consulta.lineEdit_2.setText('')
-        self.atualizar_consulta.lineEdit_3.setText('')
-        self.atualizar_consulta.lineEdit_4.setText('')
-        self.atualizar_consulta.lineEdit_5.setText('')
-        self.atualizar_consulta.lineEdit_6.setText('')
-        self.atualizar_consulta.lineEdit_7.setText('')
-        self.atualizar_consulta.lineEdit_8.setText('')
-        self.atualizar_consulta.lineEdit_9.setText('')
-        self.atualizar_consulta.lineEdit_10.setText('')
-        pass
+        if not(cpf==''):
+            # menssagem do cliente
+            # menssagem do usuario
+            menssagem =  f'atualizaconsult,{cpf}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida: ',recebida)
+            if recebida[0] == '1':
+                QtWidgets.QMessageBox.information(None, 'interface', f"A consulta foi atualizada para o RETORNO")
+            elif recebida[0] == '0':
+                QtWidgets.QMessageBox.information(None, 'interface', f"A consulta foi atualizada para NOVA consulta")
+            else:
+                QtWidgets.QMessageBox.information(None, 'interface', f"A consulta não foi encontrada!")
+           
+            self.atualizar_consulta.lineEdit_11.setText('')
+            self.atualizar_consulta.lineEdit_2.setText('')
+            self.atualizar_consulta.lineEdit_3.setText('')
+            self.atualizar_consulta.lineEdit_4.setText('')
+            self.atualizar_consulta.lineEdit_5.setText('')
+            self.atualizar_consulta.lineEdit_6.setText('')
+            self.atualizar_consulta.lineEdit_7.setText('')
+            #self.atualizar_consulta.lineEdit_8.setText('')
+            self.atualizar_consulta.lineEdit_9.setText('')
+            self.atualizar_consulta.lineEdit_10.setText('')
+        else:
+            # imprime uma menssagem de erro
+            QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o CPF.')
 
     def excluiPacientes(self):
-        # menssagem do cliente
-        pass
+            item_selecionado = self.lista_pacientes.listWidget.currentItem()
+            if item_selecionado is not None:
+                self.lista_pacientes.listWidget.takeItem(self.lista_pacientes.listWidget.row(item_selecionado))
+                menssagem = 'excluipaciente'
+                cliente_socket.send(menssagem.encode())
+                print('menssagem enviada')
+                recebida = cliente_socket.recv(1024).decode().split(",")
+                print('recebida: ',recebida)
+                if recebida[0] == '1':
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "O paciente foi excluído com sucesso.")
+                elif recebida[0] =='0':
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "A tabela está vazia ou não há registros para excluir.")
+                else:
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "Erro ao excluir.")
+            else:
+                QtWidgets.QMessageBox.warning(None, "interface_grafica", "Selecione um paciente para podelo exclui-lo")
+        
 
     def abrirTelaLoginMedico(self):
         self.QtStack.setCurrentIndex(1)
@@ -848,37 +1097,38 @@ class Main(QMainWindow, Ui_main):
     
     def abrirRealizarConsult(self):
         self.QtStack.setCurrentIndex(21)
-        """
-        if self.realizar_consulta.comboBox.count() == 0:
-        
-            
-            self.realizar_consulta.lineEdit_10.setText(login_atual_Recep)
-            cursor.execute("SELECT nome FROM medico")
-            listaMed = cursor.fetchall()
-            self.realizar_consulta.comboBox.addItem("Escolha uma Opção")
-            for item in listaMed:
-                self.realizar_consulta.comboBox.addItem(item[0])
-            self.realizar_consulta.comboBox.currentIndexChanged.connect(self.realizarConsultaAA)
-        """
-            
-            
+        menssagem =  f'logrecp'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode().split(",")
+        print('recebida:',recebida)
+        self.realizar_consulta.lineEdit_10.setText(recebida[0])
+        self.realizar_consulta.comboBox.addItem("Escolha uma Opção")
+        for dado in recebida[1:]:
+            self.realizar_consulta.comboBox.addItem(dado)   
+        self.realizar_consulta.comboBox.currentIndexChanged.connect(self.realizarConsultaAA) 
 
     def realizarConsultaAA(self):
-        pass
-        """
         medico = self.realizar_consulta.comboBox.currentText()
         print("Opção selecionada:", medico)
-        cursor.execute("SELECT cpf, crm FROM medico WHERE nome = %s",(medico,))
-        listaMed = cursor.fetchall()
-        print(listaMed)
-        for item in listaMed:
-            crm = self.realizar_consulta.lineEdit_6.setText(str(item[1]))
-            cpf_medico = self.realizar_consulta.lineEdit_9.setText(item[0])
-            cursor.execute("SELECT qtd_vagas FROM consulta WHERE medico_cpf = %s",(item[0],))
-            paciente = cursor.fetchall()
-            for dado in paciente:
-                vagas = self.realizar_consulta.lineEdit_8.setText(str(dado[0]))
-        """
+        menssagem =  f'rconsult,{medico}'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode().split(",")
+        print('recebida:',recebida)
+        if recebida[0] == '1':
+            crm = self.realizar_consulta.lineEdit_6.setText(recebida[2])
+            cpf_medico = self.realizar_consulta.lineEdit_9.setText(recebida[1])
+            #vagas = self.realizar_consulta.lineEdit_8.setText(recebida[3])
+        elif recebida[0] == '2':
+            #vagas = self.realizar_consulta.lineEdit_8.setText("")
+            #crm = self.realizar_consulta.lineEdit_6.setText(recebida[2])
+            #cpf_medico = self.realizar_consulta.lineEdit_9.setText(recebida[1])
+            pass
+            
+  
+       
+    
         
 
 
@@ -902,24 +1152,28 @@ class Main(QMainWindow, Ui_main):
 
     def abrirListaPaciente(self):
         self.QtStack.setCurrentIndex(28)
-        """
-        print(login_atual)
+
         self.lista_pacientes.listWidget.clear()
-        cursor.execute("SELECT nome FROM lista_pacientes WHERE medico_cpf = %s",(login_atual,))
-        lista = cursor.fetchall()
-        for item in lista:
-            self.lista_pacientes.listWidget.addItem(item[0])
-        """
+        menssagem =  f'listapacientes'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode().split("\n")
+        print('recebida:',recebida)
+    
+        for item in recebida:
+            self.lista_pacientes.listWidget.addItem(str(item))
         
     def abrirLoginAdmin(self):
         self.QtStack.setCurrentIndex(29)
 
     def sair(self): 
-        """
-        conexao.close()
-        print('Conexão fechada com sucesso!')
-        """
-        return exit()
+        menssagem =  f'sair'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        if menssagem == 'sair':
+            cliente_socket.close()
+            print('Conexão com o cliente FECHADA')
+            return exit()
 
     def voltarLogin(self):
         self.QtStack.setCurrentIndex(0)

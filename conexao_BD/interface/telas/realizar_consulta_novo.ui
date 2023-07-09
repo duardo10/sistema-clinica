@@ -236,19 +236,6 @@ QPushButton:hover {
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_9">
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-       <property name="text">
-        <string>QUANTIDADE DE VAGAS:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLabel" name="label_10">
        <property name="styleSheet">
         <string notr="true">background-color: white;</string>
@@ -330,13 +317,6 @@ QPushButton:hover {
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_7">
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_8">
        <property name="styleSheet">
         <string notr="true">background-color: white;</string>
        </property>

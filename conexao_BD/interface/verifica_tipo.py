@@ -84,6 +84,24 @@ class VerificaTipo(object):
 "    background-color: rgb(8, 113, 155);  /* Cor de fundo ao passar o mouse */\n"
 "}")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(600, 330, 121, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet("QPushButton {\n"
+"    background-color: white;  /* Cor de fundo */\n"
+"    color: rgb(65, 150, 183);  /* Cor do texto */\n"
+"    border-radius: 10px;  /* Raio dos cantos */\n"
+"    padding: 10px 20px;  /* Preenchimento interno */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: white;\n"
+"    background-color: rgb(8, 113, 155);  /* Cor de fundo ao passar o mouse */\n"
+"}")
+        self.pushButton_3.setObjectName("pushButton_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
@@ -103,7 +121,7 @@ class VerificaTipo(object):
         self.pushButton_2.setText(_translate("MainWindow", "VOLTAR"))
         self.label_2.setText(_translate("MainWindow", "CPF DO PACIENTE:"))
         self.pushButton.setText(_translate("MainWindow", "VERIFICAR"))
-
+        self.pushButton_3.setText(_translate("MainWindow", "ENVIAR"))
 
 if __name__ == "__main__":
     import sys

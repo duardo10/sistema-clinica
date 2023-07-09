@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 
 INSERT INTO lista_pacientes(cpf,nome,medico_cpf) VALUES('4','dudu','1');
 SELECT * FROM lista_pacientes;
-DELETE FROM lista_pacientes WHERE cpf = '1';
+DELETE FROM lista_pacientes WHERE cpf = '6';
 
 
 -- -----------------------------------------------------
@@ -127,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `medico` VARCHAR(45) NOT NULL,
   `crm` INT NOT NULL,
   `tipo_consulta` VARCHAR(20) NOT NULL,
-  `qtd_vagas` INT NOT NULL,
   `medico_cpf` VARCHAR(11) NOT NULL,
   `recepcionista_cpf` VARCHAR(11) NOT NULL,
 
@@ -149,7 +148,7 @@ ENGINE = InnoDB;
 
 ALTER TABLE consulta DROP FOREIGN KEY fk_consulta_recepcionista1;
 SELECT * FROM consulta;
-delete FROM consulta WHERE id_consulta = 8;
+delete FROM consulta WHERE id_consulta = 2;
 
 
 

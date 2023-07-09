@@ -40,26 +40,44 @@ class MedicoFunc():
             QtWidgets.QMessageBox.information(None, 'interface', "A tabela está vazia ou não há registros para excluir.")
        
 
-    def buscarPacientes(self,cpf_medico):
-        pass
-
-    def atualizaConsulta(self,cpf):
+    def buscarPacientes(self,cpf_paciente,cpf_medico):
         cursor = self.connection.cursor()
-        selecione = "SELECT tipo_consulta FROM consulta WHERE cpf_paciente = %s"
-        cursor.execute(selecione,(cpf,))
+        cursor.execute("SELECT cpf_paciente FROM consulta WHERE cpf_paciente = %s AND medico_cpf = %s ORDER BY id_consulta DESC LIMIT 1",(cpf_paciente, cpf_medico,))
+        resultado = cursor.fetchall()
+        print(resultado)
+
+        for dado in resultado:
+            if cpf_paciente== dado[0]:
+                return cpf_paciente
+        return None
+
+    def atualizaConsulta(self,cpf,cpf_medico):
+        cursor = self.connection.cursor()
+        selecione = "SELECT tipo_consulta FROM consulta WHERE cpf_paciente = %s AND medico_cpf = %s ORDER BY id_consulta DESC LIMIT 1"
+        cursor.execute(selecione,(cpf,cpf_medico))
         resultado = cursor.fetchone()
         print(resultado)
         if resultado is not None:       
             if resultado[0] != 'retorno':
-                atualiza = "UPDATE consulta SET tipo_consulta = 'retorno' WHERE cpf_paciente = %s"
-                cursor.execute(atualiza,(cpf,))
-                QtWidgets.QMessageBox.information(None, 'interface', f"A consulta foi atualizada para o RETORNO")
+                atualiza = "UPDATE consulta SET tipo_consulta = 'retorno' WHERE cpf_paciente = %s  AND medico_cpf = %s ORDER BY id_consulta DESC LIMIT 1"
+                cursor.execute(atualiza,(cpf,cpf_medico,))
+                
                 #confirmar a inserção
                 self.connection.commit()
+                return True
+            elif resultado[0] == 'retorno':
+                atualiza = "UPDATE consulta SET tipo_consulta = 'nova' WHERE cpf_paciente = %s  AND medico_cpf = %s ORDER BY id_consulta DESC LIMIT 1"
+                cursor.execute(atualiza,(cpf,cpf_medico,))
+                
+                #confirmar a inserção
+                self.connection.commit()
+                return False
             else:
-                QtWidgets.QMessageBox.information(None, 'interface', f"A consulta já é RETORNO")
+                print('ERRO')
+                
         else:
-            QtWidgets.QMessageBox.information(None, 'interface', f"A consulta não foi encontrada!")
+            return None
+    
 
       
         #self.imprimir_pacientes(resultado[3])
