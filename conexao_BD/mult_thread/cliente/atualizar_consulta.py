@@ -12,7 +12,87 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class AtualizarConsulta(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Atualizacao de Consulta.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    pushButton : QtWidgets.QPushButton
+        Botao para atualizar a consulta.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para voltar.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para os rotulos.
+    label_3 : QtWidgets.QLabel
+        Rotulo "Nome do Paciente".
+    label_11 : QtWidgets.QLabel
+        Rotulo "Telefone".
+    label_4 : QtWidgets.QLabel
+        Rotulo "Nascimento".
+    label_5 : QtWidgets.QLabel
+        Rotulo "Medico".
+    label_6 : QtWidgets.QLabel
+        Rotulo "CRM".
+    label_7 : QtWidgets.QLabel
+        Rotulo "Tipo da Consulta".
+    label_10 : QtWidgets.QLabel
+        Rotulo "CPF Medico".
+    label_8 : QtWidgets.QLabel
+        Rotulo "CPF Recepcionista".
+    layoutWidget1 : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_2 : QtWidgets.QVBoxLayout
+        Layout vertical para as caixas de texto.
+    lineEdit_2 : QtWidgets.QLineEdit
+        Caixa de texto para o nome do paciente.
+    lineEdit_3 : QtWidgets.QLineEdit
+        Caixa de texto para o telefone.
+    lineEdit_4 : QtWidgets.QLineEdit
+        Caixa de texto para a data de nascimento.
+    lineEdit_5 : QtWidgets.QLineEdit
+        Caixa de texto para o medico.
+    lineEdit_6 : QtWidgets.QLineEdit
+        Caixa de texto para o CRM.
+    lineEdit_7 : QtWidgets.QLineEdit
+        Caixa de texto para o tipo da consulta.
+    lineEdit_9 : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do medico.
+    lineEdit_10 : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do recepcionista.
+    lineEdit_11 : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do paciente.
+    label_12 : QtWidgets.QLabel
+        Rotulo "CPF do Paciente".
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para buscar a consulta.
+    line_2 : QtWidgets.QFrame
+        Linha horizontal separadora.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -204,6 +284,14 @@ class AtualizarConsulta(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+            Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "ATUALIZAR CONSULTA"))

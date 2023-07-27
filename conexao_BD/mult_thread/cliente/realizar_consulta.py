@@ -12,7 +12,83 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class RealizarConsulta(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Realizar Consulta.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Rotulo de titulo da janela.
+    pushButton : QtWidgets.QPushButton
+        Botao para cadastrar.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para voltar.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    layoutWidget : QtWidgets.QWidget
+        Widget para layout de rotulos.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para organizar os rotulos.
+    label_2 : QtWidgets.QLabel
+        Rotulo para o CPF do paciente.
+    label_3 : QtWidgets.QLabel
+        Rotulo para o nome do paciente.
+    label_11 : QtWidgets.QLabel
+        Rotulo para o telefone.
+    label_4 : QtWidgets.QLabel
+        Rotulo para a data de nascimento.
+    label_5 : QtWidgets.QLabel
+        Rotulo para o medico.
+    label_6 : QtWidgets.QLabel
+        Rotulo para o CRM.
+    label_7 : QtWidgets.QLabel
+        Rotulo para o tipo de consulta.
+    label_10 : QtWidgets.QLabel
+        Rotulo para o CPF do medico.
+    label_8 : QtWidgets.QLabel
+        Rotulo para o CPF do recepcionista.
+    layoutWidget1 : QtWidgets.QWidget
+        Widget para layout de campos de entrada.
+    verticalLayout_2 : QtWidgets.QVBoxLayout
+        Layout vertical para organizar os campos de entrada.
+    lineEdit : QtWidgets.QLineEdit
+        Campo de entrada para o CPF do paciente.
+    lineEdit_2 : QtWidgets.QLineEdit
+        Campo de entrada para o nome do paciente.
+    lineEdit_3 : QtWidgets.QLineEdit
+        Campo de entrada para o telefone.
+    lineEdit_4 : QtWidgets.QLineEdit
+        Campo de entrada para a data de nascimento.
+    comboBox : QtWidgets.QComboBox
+        Campo de selecao para o medico.
+    lineEdit_6 : QtWidgets.QLineEdit
+        Campo de entrada para o CRM.
+    lineEdit_7 : QtWidgets.QLineEdit
+        Campo de entrada para o tipo de consulta.
+    lineEdit_9 : QtWidgets.QLineEdit
+        Campo de entrada para o CPF do medico.
+    lineEdit_10 : QtWidgets.QLineEdit
+        Campo de entrada para o CPF do recepcionista.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -181,6 +257,14 @@ class RealizarConsulta(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "REALIZAR CONSULTA"))

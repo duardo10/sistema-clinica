@@ -12,7 +12,41 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ListaPacientes(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Lista de Pacientes.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    listWidget : QtWidgets.QListWidget
+        Campo da lista de pacientes.
+    line_3 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    label_12 : QtWidgets.QLabel
+        Rotulo de titulo da janela.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para excluir paciente.
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para voltar.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1069, 790)
         MainWindow.setStyleSheet("background-color: skyblue;")
@@ -88,10 +122,18 @@ class ListaPacientes(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_12.setText(_translate("MainWindow", "LISTA DE PACIENTES"))
-        self.pushButton_2.setText(_translate("MainWindow", "EXCLUIR"))
+        self.pushButton_2.setText(_translate("MainWindow", "FINALIZAR"))
         self.pushButton_3.setText(_translate("MainWindow", "VOLTAR"))
 
 

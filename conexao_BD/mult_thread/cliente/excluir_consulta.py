@@ -12,7 +12,87 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ExcluirConsulta(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Exclusao de Consulta.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para excluir consulta.
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para voltar.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para os rotulos.
+    label_3 : QtWidgets.QLabel
+        Rotulo "Nome do Paciente".
+    label_11 : QtWidgets.QLabel
+        Rotulo "Telefone".
+    label_4 : QtWidgets.QLabel
+        Rotulo "Nascimento".
+    label_5 : QtWidgets.QLabel
+        Rotulo "Medico".
+    label_6 : QtWidgets.QLabel
+        Rotulo "CRM".
+    label_7 : QtWidgets.QLabel
+        Rotulo "Tipo da Consulta".
+    label_10 : QtWidgets.QLabel
+        Rotulo "CPF Medico".
+    label_8 : QtWidgets.QLabel
+        Rotulo "CPF Recepcionista".
+    layoutWidget1 : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_2 : QtWidgets.QVBoxLayout
+        Layout vertical para as caixas de texto.
+    lineEdit_2 : QtWidgets.QLineEdit
+        Caixa de texto para o nome do paciente.
+    lineEdit_3 : QtWidgets.QLineEdit
+        Caixa de texto para o telefone.
+    lineEdit_4 : QtWidgets.QLineEdit
+        Caixa de texto para o nascimento.
+    lineEdit_5 : QtWidgets.QLineEdit
+        Caixa de texto para o medico.
+    lineEdit_6 : QtWidgets.QLineEdit
+        Caixa de texto para o CRM.
+    lineEdit_7 : QtWidgets.QLineEdit
+        Caixa de texto para o tipo de consulta.
+    lineEdit_9 : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do medico.
+    lineEdit_10 : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do recepcionista.
+    label_2 : QtWidgets.QLabel
+        Rotulo "CPF do Paciente".
+    lineEdit : QtWidgets.QLineEdit
+        Caixa de texto para o CPF do paciente.
+    line_2 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    pushButton : QtWidgets.QPushButton
+        Botao para buscar consulta.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1078, 591)
         font = QtGui.QFont()
@@ -204,6 +284,14 @@ class ExcluirConsulta(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "EXCLUIR CONSULTA"))

@@ -12,7 +12,50 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class TelaAtendimento(object):
+    """
+     Classe responsavel por configurar a interface gráfica da janela de Atendimento.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Rotulo de titulo da janela.
+    layoutWidget : QtWidgets.QWidget
+        Widget para layout de botoes.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para organizar os botoes.
+    pushButton : QtWidgets.QPushButton
+        Botao para iniciar o atendimento.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para finalizar o atendimento.
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para adicionar guiche.
+    pushButton_7 : QtWidgets.QPushButton
+        Botao para excluir guiche.
+    pushButton_4 : QtWidgets.QPushButton
+        Botao para ativar um guiche.
+    pushButton_6 : QtWidgets.QPushButton
+        Botao para desativar um guiche.
+    pushButton_5 : QtWidgets.QPushButton
+        Botao para voltar.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -191,6 +234,14 @@ class TelaAtendimento(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "ATENDIMENTO"))

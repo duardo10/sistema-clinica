@@ -12,7 +12,83 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class CadastroMed(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Cadastro de Medico.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    pushButton : QtWidgets.QPushButton
+        Botao para cadastrar médico.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para voltar.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para os rotulos.
+    label_2 : QtWidgets.QLabel
+        Rotulo "CPF".
+    label_3 : QtWidgets.QLabel
+        Rotulo "Nome".
+    label_4 : QtWidgets.QLabel
+        Rotulo "Telefone".
+    label_5 : QtWidgets.QLabel
+        Rotulo "Nascimento".
+    label_6 : QtWidgets.QLabel
+        Rotulo "Email".
+    label_7 : QtWidgets.QLabel
+        Rotulo "Especialidade".
+    label_9 : QtWidgets.QLabel
+        Rotulo "Hora de Atendimento".
+    label_10 : QtWidgets.QLabel
+        Rotulo "CRM".
+    label_11 : QtWidgets.QLabel
+        Rotulo "Senha".
+    layoutWidget1 : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_2 : QtWidgets.QVBoxLayout
+        Layout vertical para as caixas de texto.
+    lineEdit : QtWidgets.QLineEdit
+        Caixa de texto para o CPF.
+    lineEdit_2 : QtWidgets.QLineEdit
+        Caixa de texto para o nome.
+    lineEdit_3 : QtWidgets.QLineEdit
+        Caixa de texto para o telefone.
+    lineEdit_4 : QtWidgets.QLineEdit
+        Caixa de texto para o nascimento.
+    lineEdit_5 : QtWidgets.QLineEdit
+        Caixa de texto para o email.
+    lineEdit_6 : QtWidgets.QLineEdit
+        Caixa de texto para a especialidade.
+    lineEdit_7 : QtWidgets.QLineEdit
+        Caixa de texto para a hora de atendimento.
+    lineEdit_8 : QtWidgets.QLineEdit
+        Caixa de texto para o CRM.
+    lineEdit_10 : QtWidgets.QLineEdit
+        Caixa de texto para a senha.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -180,6 +256,14 @@ class CadastroMed(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "CADASTRAR MÉDICO"))

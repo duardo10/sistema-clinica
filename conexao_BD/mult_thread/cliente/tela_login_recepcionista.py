@@ -12,7 +12,63 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class LoginRecepcionista(object):
+    """
+    Classe responsavel por definir a interface grafica da tela de login do recepcionista.
+
+    Attributes
+    ---------
+    centralwidget : QtWidgets.QWidget 
+        Widget central da janela principal.
+    label : QtWidgets.QLabel 
+        Rotulo para exibir o titulo da janela.
+    line : QtWidgets.QFrame 
+        Linha horizontal para separar os elementos visuais.
+    lineEdit : QtWidgets.QLineEdit 
+        Campo de entrada para o CPF.
+    label_2 : QtWidgets.QLabel 
+        Rotulo para o campo de entrada do CPF.
+    label_3 : QtWidgets.QLabel 
+        Rotulo para o campo de entrada da senha.
+    lineEdit_2 : QtWidgets.QLineEdit 
+        Campo de entrada para a senha.
+    pushButton (QtWidgets.QPushButton): 
+        Botao para realizar o login.
+    line_2 : QtWidgets.QFrame 
+        Linha vertical para separar os elementos visuais.
+    line_3 : QtWidgets.QFrame 
+        Linha horizontal para separar os elementos visuais.
+    line_4 : QtWidgets.QFrame 
+        Linha vertical para separar os elementos visuais.
+    label_4 : QtWidgets.QLabel
+        Rotulo para exibir uma mensagem informativa.
+    label_5 : QtWidgets.QLabel
+        Rotulo vazio para espaçamento.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para cadastrar um novo recepcionista.
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para voltar a tela anterior.
+    line_5 : QtWidgets.QFrame
+        Linha horizontal para separar os elementos visuais.
+    line_6 : QtWidgets.QFrame
+        Linha horizontal para separar os elementos visuais.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -152,6 +208,14 @@ class LoginRecepcionista(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "LOGIN RECEPCIONISTA"))

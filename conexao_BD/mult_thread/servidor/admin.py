@@ -1,9 +1,27 @@
-
-"""
-A classe Funcionario é a classe mãe. que representam os dados de um funcionario. com excessão do email
-"""
 class Admin():
+    """
+    Representa um administrador.
+
+    Attributes
+    ---------
+    cpf : str
+        CPF do administrador.
+    nome : str
+        Nome do administrador.
+    senha : str 
+        senha do administrador.
+    """
     def __init__(self, cpf_admin, nome, senha):
+        """
+        Paramethers
+        -----------
+        cpf : str
+            CPF do administrador.
+        nome : str
+            Nome do administrador.
+        senha : str 
+            senha do administrador.
+        """
         self._cpf_admin = cpf_admin
         self._nome = nome
         self._senha = senha

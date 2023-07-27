@@ -2,15 +2,54 @@ import threading
 import socket
 from banco_Dado import BancoDeDados
    
-class usuario(threading.Thread):
+class Usuario(threading.Thread):
+    """
+    A classe Usuario representa um usuario do sistema
+
+    A classe Usuario e responsavel por fazer as consultas, insercoes, atualizacoes e delecoes no banco de dados do sistema
+
+    Attributes
+    ---------
+    conec : socket.socket
+        O objeto de conexão do cliente.
+    adress : tuple
+        A tupla que contem o endereço IP e a porta do cliente.
+    banco : banco_Dado.BancoDeDados
+        O objeto que representa o banco de dados do sistema.
+    lock : _thread.Lock
+        O objeto lock para sincronizacao de threads.
+
+    Methods
+    ------
+    run()
+        O metodo principal que define o comportamento do usuario quando a thread e iniciada, e processa as solicitacoes
+        do cliente chamando as funcoes adequadas para cada necessidade
+
+    """
     def __init__(self,addr,con_cliente):
         threading.Thread.__init__(self)
         self.conec = con_cliente
         self.adress = addr
         self.banco = BancoDeDados()
         self.lock = threading.Lock()
+        print(type(con_cliente))
+        """
+        Parameters
+        ----------
+        addr : tuple
+            A tupla que contem o endereco IP e a porta do cliente.
+        con_cliente : socket.socket
+            O objeto de conexao do cliente.
+
+        """
 
     def run(self):
+        """
+        O metodo principal que define o comportamento do usuario quando a thread e iniciada.
+
+        Esse metodo e executado quando a thread do usuario e iniciada. Ele define o comportamento do usuario, recebe solicitacoes do cliente, processa as solicitacoes e responde ao cliente.
+
+        """
         while (True): 
             memnssagem_cliente = self.conec.recv(1024).decode()
             dados = memnssagem_cliente.split(",")
@@ -78,6 +117,28 @@ class usuario(threading.Thread):
                 
 
     def loginAdmin(self,cpf,password):
+        """
+        Realiza o login de um usuario como administrador
+
+        O metodo verifica se as credenciais correspondem a um administrador registrado
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do usuario
+        password : str
+            A senha do usuario.
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o login, uma excecao e lançada.
+
+        Returns
+        -------
+        None
+            O resultado do login e enviado de volta ao cliente atraves do socket.
+        """
         try:
             result = self.banco.fazerLoginAdmin(cpf, password)
             if result:
@@ -90,6 +151,28 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o login')
     
     def loginMedico(self,cpf,password):
+        """
+        Realiza o login de um usuario como medico
+
+        O metodo verifica se as credenciais correspondem a um medico registrado
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do usuario
+        password : str
+            A senha do usuario.
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o login, uma excecao e lançada.
+
+        Returns
+        -------
+        None
+            O resultado do login e enviado de volta ao cliente atraves do socket.
+        """
         try:
             result = self.banco.fazerLoginMed(cpf, password)
             print('login', result)
@@ -103,6 +186,28 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o login')
     
     def loginRecep(self,cpf,password):
+        """
+        Realiza o login de um usuario como recepcionista
+
+        O metodo verifica se as credenciais correspondem a um recepcionista registrado
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do usuario
+        password : str
+            A senha do usuario
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o login, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do login e enviado de volta ao cliente atraves do socket
+        """
         try:
             result = self.banco.fazerLoginRecep(cpf, password)
             if result:
@@ -115,6 +220,42 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o login')
     
     def cadastroMedicoLogin(self,cpf,nome,telefone,dt_nasc,email,especialidade,hr_atendimento,crm,senha):
+        """
+        Realiza o cadastro de um medico 
+
+        O metodo realiza o cadastro de um medico. O resultado desse cadastro e enviado de volta ao cliente pelo socket
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do medico
+        nome : str
+            O nome do medico
+        telefone : str
+            O telefone do medico
+        dt_nasc : str
+            A data de nascimento do medico
+        email : str
+            O email do medico
+        especialidade : str
+            A especialidade do medico
+        hr_atendimento : str
+            O horario de atendimento do medico
+        crm : int
+            O CRM do medico
+        senha : str
+            A senha do medico
+        
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro do medico, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.cadastroMedico(cpf)
@@ -136,6 +277,42 @@ class usuario(threading.Thread):
             self.lock.release()
     
     def cadastroMedico(self,cpf,nome,telefone,dt_nasc,email,especialidade,hr_atendimento,crm,senha):
+        """
+        Realiza um cadastro de um medico
+
+        O metodo realiza o cadastro de um medico. O resultado desse cadastro e enviado de volta ao cliente pelo socket
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do medico
+        nome : str
+            O nome do medico
+        telefone : str
+            O telefone do medico
+        dt_nasc : str
+            A data de nascimento do medico
+        email : str
+            O email do medico
+        especialidade : str
+            A especialidade do medico
+        hr_atendimento : str
+            O horario de atendimento do medico
+        crm : int
+            O CRM do medico
+        senha : str
+            A senha do medico
+        
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro do medico, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.cadastroMedico(cpf)
@@ -157,6 +334,36 @@ class usuario(threading.Thread):
             self.lock.release()
     
     def cadastroRecepLogin(self,cpf,nome,telefone,dt_nasc,email,senha):
+        """
+        Realiza um cadastro de um recepcionista
+
+        O metodo realiza o cadastro de um recepcionista. O resultado desse cadastro e enviado de volta ao cliente atraves do socket.
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do recepcionista
+        nome : str
+            O nome do recepcionista
+        telefone : str
+            O telefone do recepcionista
+        dt_nasc : str
+            A data de nascimento do recepcionista
+        email : str
+            O email do recepcionista
+        senha : str
+            A senha do recepcionista
+         
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro do medico, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.cadastroRecep(cpf)
@@ -178,6 +385,36 @@ class usuario(threading.Thread):
             self.lock.release()
     
     def cadastroRecep(self,cpf,nome,telefone,dt_nasc,email,senha):
+        """
+        Realiza um cadastro de um recepcionista
+
+        O metodo realiza o cadastro de um recepcionista. O resultado desse cadastro e enviado de volta ao cliente atraves do socket.
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do recepcionista
+        nome : str
+            O nome do recepcionista
+        telefone : str
+            O telefone do recepcionista
+        dt_nasc : str
+            A data de nascimento do recepcionista
+        email : str
+            O email do recepcionista
+        senha : str
+            A senha do recepcionista
+         
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro do medico, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.cadastroRecep(cpf)
@@ -199,6 +436,30 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def cadastroAdmin(self,cpf_admin, nome, senha):
+        """
+        Realiza um cadastro de um administrador
+
+        O metodo realiza o cadastro de um administrador. O resultado desse cadastro e enviado de volta ao cliente atraves do socket.
+
+        Parameters
+        ----------
+        cpf_admin : str
+            O CPF do administrador
+        nome : str
+            O nome do administrador
+        senha : str
+            A senha do administrador
+         
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro do medico, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.cadastroAdmin(cpf_admin)
@@ -220,6 +481,21 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def iniciarAtendimento(self):
+        """
+        Inicia o atendimento no guiche
+
+        O metodo inicia o atendimento no guiche. O resultado desse inicio de atendimento e enviado de volta ao cliente atraves do socket.
+         
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o inicio de um atendimento, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do inicio do atendimento e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         result = self.banco.iniciar_atendimento()
         print('resultado',result)
@@ -239,6 +515,21 @@ class usuario(threading.Thread):
         self.lock.release()
            
     def FinalizarAtendimento(self):
+        """
+        Finaliza o atendimento no guiche
+
+        O metodo finaliza o atendimento no guiche. O resultado desse finalizacao de atendimento e enviado de volta ao cliente atraves do socket.
+         
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o finalizamento de um atendimento, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da finalizacao do atendimento e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.finalizar_atendimento()
@@ -257,10 +548,34 @@ class usuario(threading.Thread):
         except:
             print('Erro do servidor durante o cadastro do medico')
         finally:
-            # Libera o acesso à seção crítica
+            # Libera o acesso a secao critica
             self.lock.release()
     
     def addGuiche(self,status,senha,modo):
+        """
+        Adiciona um guiche ao sistema
+
+        O metodo adiciona um guiche ao sistema. O resultado desse cadastro de guiche e enviado de volta ao cliente atraves do socket.
+
+        Parameters
+        ----------
+        status : str
+            O status do guiche
+        senha : str
+            A senha do guiche
+        modo : str
+            O modo do guiche
+        
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o cadastro de um guiche, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado do cadastro do guiche e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             selecionar = self.banco.buscRecep()
@@ -276,12 +591,27 @@ class usuario(threading.Thread):
                     enviar = '2'
                     self.conec.send(enviar.encode())
         except:
-            print('Erro do servidor durante o cadastro do medico')
+            print('Erro do servidor durante o cadastro do guiche')
         finally:
             # Libera o acesso à seção crítica
             self.lock.release()
     
     def excluirGuiche(self):
+        """
+        Exclui o guiche do sistema
+
+        Exclui o guiche atualmente selecionado, removendo-o do sistema. O resultado da exclusao e enviado de volta ao cliente pelo socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a exclusao de um guiche, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da exclusao do guiche e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             selecionar = self.banco.buscGuicheRecep()
@@ -307,6 +637,21 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def ativarGuiche(self):
+        """
+        Ativa o guiche no sistema
+
+        Ativa o guiche atualmente inativo, atualizando seu status para ativo. O resultado da ativacao e enviado de volta ao cliente pelo socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a ativacao de um guiche, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da ativacao do guiche e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             resultado = self.banco.buscGuicheRecep()
@@ -336,6 +681,21 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def desativarGuiche(self):
+        """
+        Desativa o guiche no sistema
+
+        Desativa o guiche, atualizando seu status para inativo. O resultado da desativacao e enviado de volta ao cliente pelo socket.
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a desativacao de um guiche, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da desativacao do guiche e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             resultado = self.banco.buscGuicheRecep()
@@ -363,6 +723,27 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def imprimirRecep(self,cpf):
+        """
+        Imprime os dados do recepcionista
+
+        Este metodo recebe o CPF de um recepcionista e retorna os dados correspondentes ao recepcionista, que sao enviados de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf : str
+            O CPF do recepcionista
+        
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a impressao de um recepcionista, uma excecao e lancada
+
+
+        Returns
+        -------
+        None
+            Os dados do recepcionista sao enviados de volta ao cliente atraves do socket.
+        """
         try:
             pessoa = self.banco.buscarRecep(cpf)
             print('pessoa',pessoa)
@@ -377,6 +758,26 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o cadastro do medico')
     
     def imprimirMedico(self, cpf):
+        """
+        Imprime os dados do medico
+
+        Este metodo recebe o CPF de um medico e retorna os dados correspondentes ao medico, que sao enviados de volta ao cliente atraves do socket.
+
+        Parameters
+        ----------
+        cpf : str 
+            O CPF do medico
+        
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a impressao de um medico, uma excecao e lancada
+
+        Returns
+        -------
+        None 
+            Os dados do medico sao enviados de volta ao cliente atraves do socket.
+        """
         try:
             pessoa = self.banco.buscMed(cpf)
             if (pessoa != None):
@@ -390,6 +791,37 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o cadastro do medico')
 
     def realizarConsulta(self,cpf_paciente,nome_paciente,telefone,dt_nasc,medico,crm,tipo,cpf_medico,cpf_recepcionista):
+        """
+        Realiza uma consulta medica
+
+        Este metodo realiza uma consulta medica, registrando os dados do paciente, medico e recepcionista envolvidos. O resultado da consulta e enviado de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf_paciente : str
+            O CPF do paciente
+        nome_paciente : str 
+            O nome do paciente
+        telefone : str 
+            O telefone do paciente
+        dt_nasc : str
+            A data de nascimento do paciente
+        medico : str
+            O nome do medico responsavel pela consulta
+        crm : int
+            O CRM do medico
+        tipo : srt 
+            O tipo de consulta
+        cpf_medico : str
+            O CPF do medico responsavel pela consulta
+        cpf_recepcionista : str
+            O CPF do recepcionista que registrou a consulta
+
+        Returns
+        -------
+        None
+            O resultado da consulta e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         try:
             result = self.banco.verificaMedico(medico,crm,cpf_medico)
@@ -415,6 +847,21 @@ class usuario(threading.Thread):
             self.lock.release()
     
     def realCons(self):
+        """
+        Busca o nome dos medicos
+
+        O metodo seleciona todos os nomes dos medicos. O resultado da busca e enviado de volta ao cliente atraves do socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a busca dos medicos, uma excecao e lancada
+        
+        Returns
+        -------
+        None
+            O resultado da busca e enviado de volta ao cliente atraves do socket.
+        """
         try:
             dados = self.banco.nomeMed()
             enviar = f'{dados[0]},{dados[1]}'
@@ -431,6 +878,21 @@ class usuario(threading.Thread):
             print('Erro do servidor na realizar consulta')
     
     def enviarConsulta(self):
+        """
+        Envia uma consulta ao medico
+
+        O metodo envia os dados de um paciente para um medico. O resultado dessa operacao e enviado de volta ao cliente atraves do socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o envio dos dados de um paciente, uma excecao e lancada
+        
+        Returns
+        -------
+        None 
+            O resultado da operacao e enviado de volta ao cliente atraves do socket.
+        """
         self.lock.acquire()
         try:
             result = self.banco.enviar_consulta()
@@ -461,6 +923,26 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def buscConsult(self,cpf):
+        """
+        Busca os dados de uma consulta
+
+        O metodo seleciona todos os dados de uma consulta. O resultado da busca e enviado de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf : str 
+            O CPF do paciente
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a busca dos dados, uma excecao e lancada
+        
+        Returns
+        -------
+        None 
+            O resultado da busca dos dados e enviado de volta ao cliente atraves do socket.
+        """
         pessoa = self.banco.buscConsulta(cpf)
         if (pessoa != None):
             buscar = self.banco.buscConsult(cpf)
@@ -471,6 +953,21 @@ class usuario(threading.Thread):
             self.conec.send(enviar.encode())
 
     def excluirConsult(self,cpf):
+        """
+        Exclui uma consulta
+
+        O metodo exclui uma consulta de um paciente. O resultado da exclusao e enviado de volta ao cliente pelo socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a exclusao de uma consulta, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da exclusao da consulta e enviado de volta ao cliente atraves do socket
+        """
         self.lock.acquire()
         result = self.banco.excluir_consulta(cpf) 
         if result == True:
@@ -486,6 +983,21 @@ class usuario(threading.Thread):
 
     
     def verificarTipo(self,cpf):
+        """
+        Verifica o tipo de uma consulta
+
+        O metodo verifica o tipo de uma consulta de um paciente. O resultado da verificacao e enviado de volta ao cliente pelo socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a verificacao de uma consulta, uma excecao e lancada
+
+        Returns
+        -------
+        None
+            O resultado da verificacao da consulta e enviado de volta ao cliente atraves do socket
+        """
         try:
             retorno = self.banco.verificar_tipo(cpf)
             if retorno == True:
@@ -501,6 +1013,26 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o cadastro do medico')
 
     def enviarCons(self,cpf):
+        """
+        Envia uma consulta ao medico
+
+        O metodo envia os dados de um paciente para um medico. O resultado dessa operacao e enviado de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf : str 
+            O CPF do paciente
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante o envio dos dados de um paciente, uma excecao e lancada
+        
+        Returns
+        -------
+        None
+            O resultado da operacao e enviado de volta ao cliente atraves do socket.
+        """
         self.lock.acquire()
         try:
             result = self.banco.enviar_cons(cpf)
@@ -526,11 +1058,31 @@ class usuario(threading.Thread):
                 enviar = result
                 self.conec.send(enviar.encode())
         except:
-            print('Erro do servidor durante o cadastro do medico')
+            print('Erro do servidor ao enviar a consulta')
         finally:
             self.lock.release()
     
     def buscCons(self,cpf):
+        """
+        Busca os dados dos pacientes
+
+        O metodo seleciona todos os dados de um paciente. O resultado da busca e enviado de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf : str 
+            O CPF do paciente
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a busca dos dados, uma excecao e lancada
+        
+        Returns
+        -------
+        None
+            O resultado da busca dos dados e enviado de volta ao cliente atraves do socket.
+        """
         try:
             pessoa = self.banco.buscarPacientes(cpf)
             if (pessoa != None): 
@@ -544,6 +1096,26 @@ class usuario(threading.Thread):
             print('Erro do servidor durante o cadastro do medico')
 
     def atualizarConsult(self, cpf):
+        """
+        Atualiza uma consulta
+
+        O metodo atualiza o tipo da consulta de um paciente. O resultado da atualizacao e enviado de volta ao cliente atraves do socket
+
+        Parameters
+        ----------
+        cpf : str 
+            O CPF do paciente
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a atualizacao, uma excecao e lancada
+        
+        Returns
+        -------
+        None 
+            O resultado da atualizacao e enviado de volta ao cliente atraves do socket.
+        """
         self.lock.acquire()
         try:
             result = self.banco.atualizaConsulta(cpf)
@@ -562,6 +1134,21 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def listaPacientes(self):
+        """
+        Lista os pacientes
+
+        O metodo lista os pacientes de um medico. O resultado da listagem e enviado de volta ao cliente atraves do socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a listagem, uma excecao e lancada
+        
+        Returns
+        -------
+        None 
+            O resultado da listagem e enviado de volta ao cliente atraves do socket.
+        """
         try:
             lista = self.banco.listaPacientes()
             if len(lista) != 0:
@@ -577,6 +1164,21 @@ class usuario(threading.Thread):
             print('Erro do servidor')
     
     def excluiPacientes(self):
+        """
+        Exclui os pacientes
+
+        O metodo exclui os pacientes de um medico. O resultado da exclusao e enviado de volta ao cliente atraves do socket
+
+        Raises
+        ------
+        Exception
+            Se ocorrer um erro durante a exclusao, uma excecao e lancada
+        
+        Returns
+        -------
+        None 
+            O resultado da exclusao e enviado de volta ao cliente atraves do socket.
+        """
         self.lock.acquire()
         try:
             resultado = self.banco.excluiPaci() 
@@ -598,12 +1200,16 @@ class usuario(threading.Thread):
             self.lock.release()
 
     def fecharConexao(self):
+        """
+        Fecha a conexao de um cliente
+
+        """
         self.conec.close()     
         print(f'Conexão {self.conec} ENCERRADA')
     
 
 if __name__ == '__main__':
-    host = '10.0.0.111'
+    host = '10.180.44.224'
     port = 8020
     addr = ((host, port))
     serv_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -613,6 +1219,6 @@ if __name__ == '__main__':
         serv_socket.listen(10)
         print("Aguardando conexão...")
         conexao_servidor, cliente = serv_socket.accept()
-        newthread = usuario(cliente, conexao_servidor)
+        newthread = Usuario(cliente, conexao_servidor)
         newthread.start()
         print("Conectado")

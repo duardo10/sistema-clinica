@@ -15,34 +15,89 @@ from cadastrar_med import CadastroMed
 from tela_cadastro import TelaCadastros
 from tela_atendimento import TelaAtendimento
 from adicionar_guiche import AddGuiche
-from finalizar_guiche import Finalizar
-from ativar_guiche import AtivarGuiche
-from desativar_guiche import DesativarGuiche
+#from ativar_guiche import AtivarGuiche
 from imprimir_dados import ImpDados
 from imprimir_medico import ImpMed
 from imprimir_recepcionista import ImpRecp
-
+# tatata
 #from impressao import Imprimir
 from tela_consulta import TelaConsulta
 from realizar_consulta import RealizarConsulta
 from excluir_consulta import ExcluirConsulta
 from verifica_tipo import VerificaTipo
-from imprimir_pacientes import ImprimirPacientes
-from excluir_pacientes import ExcluirPacientes
-from excluir_guiche import ExcluirGuiche
 from atualizar_consulta import AtualizarConsulta
 from lista_pacientes import ListaPacientes
 from login_admin import LoginAdmin
 from cadastrar_admin import CadastrarAdmin
 
 import socket
-ip = '10.0.0.111'
+ip = '10.180.44.224'
 port = 8020
 addr = ((ip, port))
 cliente_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 cliente_socket.connect(addr)
 
 class Ui_main(QtWidgets.QWidget):
+    """
+    Responsavel por configurar a interface grafica principal do sistema.
+
+    Gerencia as janelas e layouts para exibir as diferentes telas do programa.
+
+    Attributes
+    ---------
+    tela_login : TelaLogin
+        Objeto da classe de TelaLogin
+    tela_login_medico : LoginMedico
+        Objeto da classe LoginMedico
+    tela_login_recepcionista : LoginRecepcionista
+        Objeto da classe LoginRecepcionissta
+    tela_medico : TelaMedico
+        Objeto da classe TelaMedico
+    tela_recepcionista : TelaRecepcionista
+        Objeto da classe TelaRecepcionista
+    cadastrar_medico : CadastrarMedico
+        Objeto da classe CadastrarMedico 
+    cadastrar_recepcionista : CadastrarRecep
+        Objeto da classe CadastrarRecep
+    tela_cadastro : TelaCadastros
+        Objeto da classe TelaCadastros
+    cadastrar_recp : CadastroRecp
+        Objeto da classe CadastroRecp
+    cadastrar_med : CadastroMed
+        Objeto da classe CadastroMed
+    cadastrar_admin : CadastrarAdmin
+        Objeto da classe CadastrarAdmin
+    tela_atendimento : TelaAtendimento
+        Objeto da classe TelaAtendimento
+    adicionar_guiche : AddGuiche
+        Objeto da classe AddGuiche
+    imprimir_dados : ImpDados
+        Objeto da classe ImpDados
+    imprimir_recepcionista : ImpRecp
+        Objeto da classe ImpRecp
+    imprimir_medico : ImpMed
+        Objeto da classe ImpMed
+    tela_consulta : TelaConsulta
+        Objeto da classe TelaConsulta
+    realizar_consulta : RealizarConsulta
+        Objeto da classe RealizarConsulta
+    excluir_consulta : ExcluirConsulta
+        Objeto da classe ExcluirConsulta
+    verifica_tipo : VerificaTipo
+        Objeto da classe VerificaTipo
+    atualizar_consulta : AtualizarConsulta
+        Objeto da classe AtualizarConsulta
+    lista_pacientes : ListaPacientes
+        Objeto da classe ListaPacientes
+    login_admin : LoginAdmin
+        Objeto da classe LoginAdmin
+
+    Methods
+    ------
+    setupUi
+        Configura a interface grafica definindo as janelas e layouts necessarios
+    """
+
     def setupUi(self, Main):
         Main.setObjectName('Main')
         Main.resize(640,480)   
@@ -118,14 +173,14 @@ class Ui_main(QtWidgets.QWidget):
         self.adicionar_guiche = AddGuiche()
         self.adicionar_guiche.setupUi(self.stack12)
 
-        self.finalizar_atendimento = Finalizar()
-        self.finalizar_atendimento.setupUi(self.stack13)
+        #self.finalizar_atendimento = Finalizar()
+        #self.finalizar_atendimento.setupUi(self.stack13)
 
-        self.ativar_guiche = AtivarGuiche()
-        self.ativar_guiche.setupUi(self.stack14)
+        #self.ativar_guiche = AtivarGuiche()
+        #self.ativar_guiche.setupUi(self.stack14)
 
-        self.desativa_guiche = DesativarGuiche()
-        self.desativa_guiche.setupUi(self.stack15) 
+        #self.desativa_guiche = DesativarGuiche()
+        #self.desativa_guiche.setupUi(self.stack15) 
 
         self.imprimir_dados = ImpDados()
         self.imprimir_dados.setupUi(self.stack16)
@@ -148,14 +203,14 @@ class Ui_main(QtWidgets.QWidget):
         self.verifica_tipo = VerificaTipo()
         self.verifica_tipo.setupUi(self.stack23)
 
-        self.imprimir_pacientes = ImprimirPacientes()
-        self.imprimir_pacientes.setupUi(self.stack24)
+        #self.imprimir_pacientes = ImprimirPacientes()
+        #self.imprimir_pacientes.setupUi(self.stack24)
 
-        self.excluir_pacientes = ExcluirPacientes()
-        self.excluir_pacientes.setupUi(self.stack25)
+        #self.excluir_pacientes = ExcluirPacientes()
+        #self.excluir_pacientes.setupUi(self.stack25)
 
-        self.excluir_guiche = ExcluirGuiche()
-        self.excluir_guiche.setupUi(self.stack26)
+        #self.excluir_guiche = ExcluirGuiche()
+        #self.excluir_guiche.setupUi(self.stack26)
 
         self.atualizar_consulta = AtualizarConsulta()
         self.atualizar_consulta.setupUi(self.stack27)
@@ -200,6 +255,139 @@ class Ui_main(QtWidgets.QWidget):
         
 
 class Main(QMainWindow, Ui_main):
+    """
+    Representa a janela principal do sistema.
+
+    Esta classe e responsavel por gerenciar a interface grafica principal do sistema,
+    incluindo a exibicao de widgets e a conexao de sinais e slots
+
+    Attributes
+    ---------
+    tableWidget (QTableWidget)
+        Widget de tabela central da janela
+
+    Methods
+    ------
+    loginAdmin()
+        Esse metodo representa o login do administrador
+    loginMedico()
+        Esse metodo representa o login do medico
+    loginRecep()
+        Esse metodo representa o login do recepcionista
+    cadastroMedicoLogin()
+        Esse metodo realiza o cadastro de um medico    
+    cadastroMedico()
+        Esse metodo realiza o cadastro de um medico
+    cadastroRecepLogin()
+        Esse metodo realiza o cadastro de um recepcionista
+    cadastroRecep()
+        Esse metodo realiza o cadastro de um recepcionista na tela de cadastro
+    cadastroAdmin()
+        Esse metodo realiza o cadastro de um administrador na tela de cadastro
+    iniciarAtendimento()
+        Esse metodo inicia o atendimento em um guiche
+    finalizarAtendimento()
+        Esse metodo finaliza o atendimento em um guiche
+    addGuiche()
+        Esse metodo adiciona um novo guiche
+    excluirGuiche()
+        Esse metodo exclui um guiche
+    ativarGuiche()
+        Esse metodo ativa um guiche
+    desativar_Guiche()
+        Esse metodo desativa um guiche
+    imprimirRecep()
+        Esse metodo imprime os dados de um recepcionista
+    imprimirMed()
+        Esse metodo imprime os dados de um medico
+    realizarConsulta()
+        Esse metodo realiza uma consulta medica
+    enviarConsulta()
+        Esse metodo envia a consulta para a lista de pacientes.
+    buscCons()
+        Esse metodo realiza a busca de uma consulta para exclui-la
+    excluirConsulta()
+        Esse metodo exclui uma consulta
+    verificaTipo()
+        Esse metodo verifica o tipo de consulta
+    enviarCons()
+        Esse metodo envia consulta para a lista de pacientes.
+    buscConsult()
+        Esse metodo busca informacoes de uma consulta para atualiza-la
+    atualizarConsulta()
+        Esse metodo atualiza o tipo de uma consulta
+    excluiPacientes()
+        Esse metodo exclui um paciente da lista de pacientes
+    abrirTelaLoginMedico()
+        Esse metodo abre a tela de login para medicos.
+    abrirTelaLoginRecepcionista()
+        Esse metodo abre a tela de login para recepcionistas.
+    abrirTelaMedico()
+        Esse metodo abre a tela principal do medico.
+    abrirTelaRecepcionista()
+        Esse metodo abre a tela principal do recepcionista.
+    abrirCadastroMedico()
+        Esse metodo abre a tela de cadastro de medico.
+    abrirCadastroRecepcionista()
+        Esse metodo abre a tela de cadastro de recepcionista.
+    abrirTelaCadastros()
+        Esse metodo abre a tela de cadastros.
+    abrirCadastroRecep()
+        Esse metodo abre a tela de cadastro de recepcionista.
+    abrirCadastroMed()
+        Esse metodo abre a tela de cadastro de medico.
+    abrirCadastroAdmin()
+        Esse metodo abre a tela de cadastro de administrador.
+    abrirAtendimento()
+        Esse metodo abre a tela de atendimento.
+    abrirAddGuiche()
+        Esse metodo abre a tela de adicionar guiche.
+    abrirfinalizarAtendimento()
+        Esse metodo abre a tela de finalizar atendimento.  
+    abrirativarGuiche()
+        Esse metodo abre a tela de ativar guiche.
+    abrirdesativaGuiche()
+        Esse metodo abre a tela de desativar guiche.
+    abrirImpressao()
+        Esse metodo abre a tela de impressao.
+    abrirImpRecep()
+        Esse metodo abre a tela de impressao para recepcionista.
+    abrirImpMed()
+        Esse metodo abre a tela de impressao para medico.
+    abrirConsulta()
+        Esse metodo abre a tela de consulta.
+    abrirRealizarConsult()
+        Esse metodo abre a tela de realizacao de consulta.
+    realizarConsultaAA()
+        Esse metodo realiza uma consulta ao selecionar um medico na lista suspensa.
+    abrirExcluirConsult()
+        Esse metodo abre a tela de exclusao de consulta.
+    abrirTipoConsult()
+        Esse metodo abre a tela de verificacao do tipo de consulta.
+    abrirImpPac()
+        Esse metodo abre a tela de impressao de informacoes do paciente.
+    abrirExcluirPac()
+        Esse metodo abre a tela de exclusao de paciente.
+    abrirExcluirGuiche()
+        Esse metodo abre a tela de exclusao de guiche.
+    abrirAtualizarCons()
+        Esse metodo abre a tela de atualizacao de consulta.
+    abrirListaPaciente()
+        Esse metodo abre a tela de lista de pacientes.
+    abrirLoginAdmin()
+        Esse metodo abre a tela de login do administrador.
+    sair()
+        Esse metodo fecha a aplicacao e encerra a conexao com o servidor. 
+    voltarLogin()
+        Esse metodo volta para a tela de login.
+    voltarLoginMedico()
+        Esse metodo volta para a tela de login do medico.
+    voltarLoginRecep()
+        Esse metodo volta para a tela de login do recepcionista.
+    voltarCadastros()
+        Volta para a tela de cadastros.
+    """
+
     def __init__(self, parent=None):
         super(Main, self).__init__(parent)
         self.setupUi(self)
@@ -270,8 +458,8 @@ class Main(QMainWindow, Ui_main):
         # tela do recepcionista = tela de atendimento
         self.tela_atendimento.pushButton.clicked.connect(self.iniciarAtendimento)
         self.tela_atendimento.pushButton_2.clicked.connect(self.finalizarAtendimento)
-        self.finalizar_atendimento.pushButton.clicked.connect(self.finalizarAtendimento)
-        self.finalizar_atendimento.pushButton_2.clicked.connect(self.abrirAtendimento)
+        #self.finalizar_atendimento.pushButton.clicked.connect(self.finalizarAtendimento)
+        #self.finalizar_atendimento.pushButton_2.clicked.connect(self.abrirAtendimento)
         self.tela_atendimento.pushButton_3.clicked.connect(self.abrirAddGuiche)
         self.adicionar_guiche.pushButton.clicked.connect(self.addGuiche)
         self.tela_atendimento.pushButton_7.clicked.connect(self.excluirGuiche)
@@ -306,6 +494,17 @@ class Main(QMainWindow, Ui_main):
         self.tela_medico.pushButton_3.clicked.connect(self.voltarLoginMedico)
 
     def loginAdmin(self):
+        """
+        Realiza o login de um administrador.
+
+        Este metodo obtem os dados de CPF e senha informados na interface de login do administrador, envia esses dados para o 
+        servidor atraves de um socket e recebe uma resposta do servidor para autenticacao
+
+        Returns
+        -------
+            None: A interface e atualizada com base na resposta do servidor. Em caso de sucesso, a tela de cadastros e aberta. 
+            Caso contrario, exibe uma mensagem de erro na interface.
+        """
         cpf = self.login_admin.lineEdit.text()
         password = self.login_admin.lineEdit_2.text()
         if not(cpf=='' or password==''):
@@ -331,6 +530,18 @@ class Main(QMainWindow, Ui_main):
             
 
     def loginMedico(self):
+        """
+        Realiza o login de um medico.
+
+        Este metodo obtem os dados de CPF e senha informados na interface de login do medico, envia esses dados 
+        para o servidor atraves de um socket e recebe uma resposta do servidor para autenticacao
+
+        Returns
+        -------
+        None 
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, a tela do medico e aberta. 
+            Caso contrario, exibe uma mensagem de erro na interface
+        """
         cpf = self.tela_login_medico.lineEdit.text()
         password = self.tela_login_medico.lineEdit_2.text()
         if not(cpf=='' or password==''):
@@ -356,6 +567,18 @@ class Main(QMainWindow, Ui_main):
     
     
     def loginRecep(self):
+        """
+        Realiza o login de um recepcionista
+
+        Este metodo obtem os dados de CPF e senha informados na interface de login do recepcionista, envia esses dados para o servidor 
+        atraves de um socket e recebe uma resposta do servidor para autenticacao
+
+        Returns
+        -------
+        None 
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, a tela do recepcionista e aberta. 
+            Caso contrario, exibe uma mensagem de erro na interface
+        """
         cpf = self.tela_login_recepcionista.lineEdit.text()
         password = self.tela_login_recepcionista.lineEdit_2.text()
         if not(cpf=='' or password==''):
@@ -382,6 +605,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Informe todos os campos para fazer o Login')
 
     def cadastroMedicoLogin(self):
+        """
+        Realiza o cadastro de um medico na interface de login.
+
+        Este metodo obtem os dados de CPF, nome, telefone, data de nascimento, email, especialidade, horario de atendimento, CRM e senha informados 
+        na interface de cadastro de medico na tela de login. Esses dados sao enviados para o servidor atraves de um socket para realizar o cadastro
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, exibe uma mensagem de confirmacao e limpa os campos de cadastro. 
+            Caso contrario, exibe uma mensagem de erro na interface
+        """
         cpf = self.cadastrar_medico.lineEdit.text()
         nome = self.cadastrar_medico.lineEdit_2.text()
         telefone = self.cadastrar_medico.lineEdit_3.text()
@@ -422,7 +657,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
 
     def cadastroMedico(self):
-        # na tela do recepcionista
+        """
+        Realiza o cadastro de um medico
+
+        Este metodo obtem os dados de CPF, nome, telefone, data de nascimento, email, especialidade, horario de atendimento, CRM e senha informados na 
+        tela de cadastro de medico na tela do recepcionista. Esses dados sao enviados para o servidor atraves de um socket para realizar o cadastro
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, exibe uma mensagem de confirmacao e limpa os campos de cadastro. 
+            Caso contrario, exibe uma mensagem de erro na interface.
+        """
         cpf = self.cadastrar_med.lineEdit.text()
         nome = self.cadastrar_med.lineEdit_2.text()
         telefone = self.cadastrar_med.lineEdit_3.text()
@@ -463,6 +709,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
     
     def cadastroRecepLogin(self):
+        """
+        Realiza o cadastro de um recepcionista na tela de login
+
+        Este metodo obtem os dados de CPF, nome, telefone, data de nascimento, email e senha informados na tela de cadastro 
+        de recepcionista na tela de login. Esses dados sao enviados para o servidor atraves de um socket para realizar o cadastro
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, exibe uma mensagem de confirmacao e limpa os campos de cadastro. 
+            Caso contrario, exibe uma mensagem de erro na interface
+        """
         cpf = self.cadastrar_recepcionista.lineEdit.text()
         nome = self.cadastrar_recepcionista.lineEdit_2.text()
         telefone = self.cadastrar_recepcionista.lineEdit_3.text()
@@ -499,6 +757,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
 
     def cadastroRecep(self):
+        """
+        Realiza o cadastro de um recepcionista na tela de cadastro
+
+        Este metodo obtem os dados de CPF, nome, telefone, data de nascimento, email e senha informados na tela de cadastro de recepcionista. 
+        Esses dados sao enviados para o servidor atraves de um socket para realizar o cadastro
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, exibe uma mensagem de confirmacao e limpa os campos de cadastro. 
+            Caso contrario, exibe uma mensagem de erro na interface.
+        """
         cpf = self.cadastrar_recp.lineEdit.text()
         nome = self.cadastrar_recp.lineEdit_2.text()
         telefone = self.cadastrar_recp.lineEdit_3.text()
@@ -534,6 +804,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
 
     def cadastroAdmin(self):
+        """
+        Realiza o cadastro de um administrador na tela de cadastro
+
+        Este metodo obtem os dados de CPF, nome e senha informados na tela de cadastro de administrador. 
+        Esses dados sao enviados para o servidor atraves de um socket para realizar o cadastro
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de sucesso, exibe uma mensagem de confirmacao e limpa os campos de cadastro. 
+            Caso contrario, exibe uma mensagem de erro na interface
+        """
         cpf_admin = self.cadastrar_admin.lineEdit.text()
         nome = self.cadastrar_admin.lineEdit_2.text()
         senha = self.cadastrar_admin.lineEdit_3.text()
@@ -562,6 +844,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
 
     def iniciarAtendimento(self):
+        """
+        Inicia o atendimento em um guiche
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitação de iniciar o atendimento. O servidor processa a solicitacao e 
+        retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface e atualizada com base na resposta do servidor. Em caso de erro, exibe uma mensagem de erro na interface. 
+            Em caso de sucesso, exibe a mensagem de confirmacao na interface
+        """
         menssagem =  'atendimento'
         cliente_socket.send(menssagem.encode())
         print('menssagem enviada')
@@ -576,6 +870,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', str(recebida), QMessageBox.Ok)
 
     def finalizarAtendimento(self):
+        """
+        Finaliza o atendimento em um guiche
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitacao de finalizar o atendimento. O servidor processa a solicitacao e 
+        retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de sucesso ou erro com base na resposta do servidor
+        """
         menssagem =  'finalizar_atendimento'
         cliente_socket.send(menssagem.encode())
         print('menssagem enviada')
@@ -590,6 +895,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', recebida, QMessageBox.Ok)
 
     def addGuiche(self):
+        """
+        Adiciona um novo guiche
+
+        Este metodo obtem os dados de senha, status e modo informados na interface de adicionar guiche. Esses dados sao enviados 
+        para o servidor atraves de um socket para adicionar o guiche. O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface
+       
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de sucesso ou erro com base na resposta do servidor
+        """
         senha = self.adicionar_guiche.lineEdit.text()
         status = self.adicionar_guiche.lineEdit_2.text()
         modo = self.adicionar_guiche.lineEdit_3.text()
@@ -619,6 +935,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não adicionado! informe todos os campos.')
 
     def excluirGuiche(self):
+        """
+        Exclui um guiche
+
+        Este metodo exibe uma caixa de dialogo de confirmacao para verificar se o usuario realmente deseja excluir o guiche. 
+        Caso ele queira, envia uma mensagem ao servidor indicando a solicitacao de exclusao do guiche. O servidor processa a solicitacao e 
+        retorna uma resposta que é tratada pela interface. 
+
+        Returns
+        -------
+        None 
+            A interface exibe uma mensagem dependo da resposta do servidor,para cada caso e exibido uma caixa de dialogo
+        """
         confirm = QMessageBox.question(self, 'Confirmação', 'Deseja realmente excluir?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if confirm == QMessageBox.Yes:
             menssagem =  'excluiguiche'
@@ -639,22 +967,44 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Exclusão cancelada')
     
     def ativarGuiche(self):
-            menssagem =  'ativarguiche'
-            cliente_socket.send(menssagem.encode())
-            print('menssagem enviada')
-            recebida = cliente_socket.recv(1024).decode()
-            if recebida == '1':
-                QtWidgets.QMessageBox.information(None, 'interface', 'Guiche ATIVADO!')
-            elif recebida == '0':
-                QtWidgets.QMessageBox.information(None, 'interface', 'O Guiche já está ATIVO')
-            elif recebida == '2':
-                QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não encontrado!')
-            elif recebida == '3':
-                QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
-            else:
-                QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
+        """
+        Ativa um guiche
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitacao de ativar o guiche. O servidor processa a solicitacao 
+        e retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de sucesso ou erro com base na resposta do servidor
+        """
+        menssagem =  'ativarguiche'
+        cliente_socket.send(menssagem.encode())
+        print('menssagem enviada')
+        recebida = cliente_socket.recv(1024).decode()
+        if recebida == '1':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche ATIVADO!')
+        elif recebida == '0':
+            QtWidgets.QMessageBox.information(None, 'interface', 'O Guiche já está ATIVO')
+        elif recebida == '2':
+            QtWidgets.QMessageBox.information(None, 'interface', 'Guiche não encontrado!')
+        elif recebida == '3':
+            QtWidgets.QMessageBox.critical(None, 'interface','Esse recepcionista não foi cadastrado em nenhum guiche.', QMessageBox.Ok)
+        else:
+            QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
   
     def desativar_Guiche(self):
+        """
+        Desativa um guiche
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitacao de desativar o guiche. O servidor processa a solicitacao 
+        e retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de sucesso ou erro com base na resposta do servidor
+        """
         menssagem =  'desativarguiche'
         cliente_socket.send(menssagem.encode())
         print('menssagem enviada')
@@ -670,7 +1020,18 @@ class Main(QMainWindow, Ui_main):
         else:
             QtWidgets.QMessageBox.information(None, 'interface', 'Erro de conexão cliente servidor!')
 
-    def imprimirRecep(self):            
+    def imprimirRecep(self):
+        """
+        Imprime os dados de um recepcionista
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitacao de imprimir os dados de um recepcionista com base no CPF informado. 
+        O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None 
+            A interface exibe os dados do recepcionista ou uma mensagem de aviso caso nenhum recepcionista seja encontrado com o CPF informado
+        """            
         cpf = self.imprimir_recepcionista.lineEdit_5.text()
         if not(cpf==''):
             menssagem =  f'imprecep,{cpf}'
@@ -689,6 +1050,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo CPF não foi preenchido! Informe um CPF.')
 
     def imprimirMed(self):
+        """
+        Imprime os dados de um medico
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitacao de imprimir os dados de um medico com base no CPF informado. 
+        O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface exibe os dados do medico ou uma mensagem de aviso caso nenhum medico seja encontrado com o CPF informado.
+        """
         cpf = self.imprimir_medico.lineEdit_5.text()
         if not(cpf==''):
             menssagem =  f'impmedico,{cpf}'
@@ -710,6 +1082,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo CPF não foi preenchido! Informe um CPF.')
     
     def realizarConsulta(self):
+        """
+        Realiza uma consulta medica
+
+        Este metodo obtem os dados do paciente, medico, recepcionista e tipo de consulta informados na interface e envia uma mensagem ao 
+        servidor solicitando a realizacao da consulta. O servidor processa a solicitacao e retorna uma resposta que é tratada pela interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de confirmacao em caso de sucesso ou mensagens de aviso em caso de erro ou dados incorretos.
+        """
         cpf_paciente = self.realizar_consulta.lineEdit.text()
         nome_paciente = self.realizar_consulta.lineEdit_2.text()
         telefone = self.realizar_consulta.lineEdit_3.text()
@@ -755,6 +1138,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Cadastro não realizado! informe todos os campos.')
     
     def enviarConsulta(self):
+        """
+        Envia a consulta para a lista de pacientes.
+
+        Este metodo envia uma mensagem ao servidor indicando a solicitaco de enviar a consulta para a lista de pacientes. 
+        O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface
+
+        Returns
+        -------
+        None
+            A interface exibe mensagens de confirmacao, aviso ou erro com base na resposta do servidor.
+        """
         menssagem =  f'enviarconsult'
         cliente_socket.send(menssagem.encode())
         print('menssagem enviada')
@@ -775,6 +1169,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Erro: NÃO ENVIOU!')
 
     def buscCons(self):
+        """
+        Realiza a busca de uma consulta para exclui-la
+
+        Este metodo realiza a busca de uma consulta no servidor com base no CPF informado. O CPF e enviado ao servidor por meio de uma mensagem.
+        O servidor processa a busca e retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe os dados da consulta encontrada ou exibe uma mensagem informando que nenhum paciente foi encontrado com o CPF informado.
+        """
         cpf = self.excluir_consulta.lineEdit.text()
         if not(cpf==''):
             menssagem =  f'busconsult,{cpf}'
@@ -796,6 +1201,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o CPF.')
 
     def excluirConsulta(self):
+        """
+        Exclui uma consulta
+
+        Este metodo exibe uma caixa de dialogo de confirmacao para o usuario. Se o usuario confirmar a exclusao, o metodo envia uma mensagem ao servidor
+        indicando a solicitacao de exclusao da consulta. O CPF da consulta e obtido a partir do campo de texto na interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de sucesso, de erro ou informa que o paciente nao foi encontrado com o CPF informado.
+        """
         confirm = QMessageBox.question(self, 'Confirmação', 'Deseja realmente excluir?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if confirm == QMessageBox.Yes:
             cpf = self.excluir_consulta.lineEdit.text()
@@ -822,6 +1238,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Exclusão cancelada')
 
     def verificaTipo(self):
+        """
+        Verifica o tipo de consulta
+
+        Este metodo verifica o tipo de consulta com base no CPF informado. O CPF e obtido a partir do campo de texto na interface. O metodo envia uma mensagem 
+        ao servidor indicando a solicitacao de verificacao do tipo de consulta. O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem com o tipo de consulta ou informa que o CPF nao foi encontrado.
+        """
         cpf = self.verifica_tipo.lineEdit.text()
         if not(cpf==''):
             menssagem =  f'verificartipo,{cpf}'
@@ -838,6 +1265,18 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo não preenchido! Imforme um CPF.')
 
     def enviarCons(self):
+        """
+        Envia consulta para a lista de pacientes.
+
+        Este metodo envia uma consulta para a lista de pacientes com base no CPF informado. O CPF e obtido a partir do campo de texto na interface. 
+        O metodo envia uma mensagem ao servidor indicando a solicitação de enviar a consulta para a lista de pacientes. O servidor processa a solicitacao e 
+        retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem com o resultado da operacao
+        """
         cpf = self.verifica_tipo.lineEdit.text()
         if not(cpf==''):
             menssagem =  f'enviarcon,{cpf}'
@@ -862,6 +1301,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Campo não preenchido! Imforme um CPF.')
     
     def buscConsult(self):
+        """
+        Busca informacoes de uma consulta para atualiza-la
+
+        Este metodo realiza uma busca por informacoes de uma consulta com base no CPF do paciente. O CPF e obtido a partir do campo de texto na interface. 
+        O metodo envia uma mensagem ao servidor indicando a solicitacao de busca da consulta. O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None 
+            A interface exibe as informacoes da consulta encontrada ou uma mensagem de aviso caso nenhum paciente seja registrado com o CPF informado.
+        """
         cpf = self.atualizar_consulta.lineEdit_11.text()
         if not(cpf==''):
             menssagem =  f'bconsult,{cpf}'
@@ -891,6 +1341,17 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o CPF.')
 
     def atualizarConsulta(self):
+        """
+        Atualiza o tipo de uma consulta
+
+        Este metodo atualiza o tipo de uma consulta para Retorno ou Nova consulta. O CPF do paciente e obtido a partir do campo de texto na interface. O metodo envia 
+        uma mensagem ao servidor indicando a solicitacao de atualizacao da consulta. O servidor processa a solicitacao e retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None 
+            A interface exibe uma mensagem de confirmacao ou aviso com base na resposta do servidor.
+        """
         cpf = self.atualizar_consulta.lineEdit_11.text()
         if not(cpf==''):
             menssagem =  f'atualizaconsult,{cpf}'
@@ -917,91 +1378,202 @@ class Main(QMainWindow, Ui_main):
             QtWidgets.QMessageBox.information(None, 'interface', 'Busca não realizada! informe o CPF.')
 
     def excluiPacientes(self):
-            item_selecionado = self.lista_pacientes.listWidget.currentItem()
-            if item_selecionado is not None:
-                self.lista_pacientes.listWidget.takeItem(self.lista_pacientes.listWidget.row(item_selecionado))
-                confirm = QMessageBox.question(self, 'Confirmação', 'Deseja realmente excluir?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                if confirm == QMessageBox.Yes:
-                    menssagem = 'excluipaciente'
-                    cliente_socket.send(menssagem.encode())
-                    print('menssagem enviada')
-                    recebida = cliente_socket.recv(1024).decode().split(",")
-                    if recebida[0] == '1':
-                        QtWidgets.QMessageBox.warning(None, "interface_grafica", "O paciente foi excluído com sucesso.")
-                    elif recebida[0] =='0':
-                        QtWidgets.QMessageBox.warning(None, "interface_grafica", "A tabela está vazia ou não há registros para excluir.")
-                    elif recebida[0] =='2':
-                        QtWidgets.QMessageBox.warning(None, "interface_grafica", "Erro no banco de dados")
-                    else:
-                        QtWidgets.QMessageBox.warning(None, "interface_grafica", "Erro ao excluir.")
+        """
+        Exclui um paciente da lista de pacientes
+
+        Este metodo exclui um paciente da lista de pacientes. O paciente selecionado e obtido a partir do item atualmente selecionado na interface. O metodo exibe uma 
+        mensagem de confirmacao para garantir a exclusao e envia uma mensagem ao servidor indicando a solicitacao de exclusao do paciente. O servidor processa a solicitacao 
+        e retorna uma resposta que e tratada pela interface. 
+
+        Returns
+        -------
+        None
+            A interface exibe uma mensagem de confirmacao ou aviso com base na resposta do servidor.
+        """
+        item_selecionado = self.lista_pacientes.listWidget.currentItem()
+        if item_selecionado is not None:
+            self.lista_pacientes.listWidget.takeItem(self.lista_pacientes.listWidget.row(item_selecionado))
+            confirm = QMessageBox.question(self, 'Confirmação', 'Deseja realmente excluir?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if confirm == QMessageBox.Yes:
+                menssagem = 'excluipaciente'
+                cliente_socket.send(menssagem.encode())
+                print('menssagem enviada')
+                recebida = cliente_socket.recv(1024).decode().split(",")
+                if recebida[0] == '1':
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "O paciente foi excluído com sucesso.")
+                elif recebida[0] =='0':
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "A tabela está vazia ou não há registros para excluir.")
+                elif recebida[0] =='2':
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "Erro no banco de dados")
                 else:
-                    QtWidgets.QMessageBox.information(None, 'interface', 'Exclusão cancelada')
+                    QtWidgets.QMessageBox.warning(None, "interface_grafica", "Erro ao excluir.")
             else:
-                QtWidgets.QMessageBox.warning(None, "interface_grafica", "Selecione um paciente para podelo exclui-lo")
+                QtWidgets.QMessageBox.information(None, 'interface', 'Exclusão cancelada')
+        else:
+            QtWidgets.QMessageBox.warning(None, "interface_grafica", "Selecione um paciente para podelo exclui-lo")
         
 
     def abrirTelaLoginMedico(self):
+        """
+        Abre a tela de login para medicos.
+
+        Este metodo altera o endice da pilha de widgets para exibir a tela de login para medicos na interface.
+        """
         self.QtStack.setCurrentIndex(1)
             
     def abrirTelaLoginRecepcionista(self):
+        """
+        Abre a tela de login para recepcionistas.
+
+        Este metodo altera o endice da pilha de widgets para exibir a tela de login para recepcionistas na interface.
+        """
         self.QtStack.setCurrentIndex(2)
 
     def abrirTelaMedico(self):
+        """
+        Abre a tela principal do medico.
+
+        Este metodo altera o endice da pilha de widgets para exibir a tela principal do medico na interface.
+        """
         self.QtStack.setCurrentIndex(3)
     
     def abrirTelaRecepcionista(self):
-        
+        """
+        Abre a tela principal do recepcionista.
+
+        Este metodo altera o endice da pilha de widgets para exibir a tela principal do recepcionista na interface.
+        """
         self.QtStack.setCurrentIndex(4)
 
     def abrirCadastroMedico(self):
+        """
+        Abre a tela de cadastro de medico.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastro de medico na interface.
+        """
         self.QtStack.setCurrentIndex(5)
 
     def abrirCadastroRecepcionista(self):
+        """
+        Abre a tela de cadastro de recepcionista.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastro de recepcionista na interface.
+        """
         self.QtStack.setCurrentIndex(6)
     
     def abrirTelaCadastros(self):
+        """
+        Abre a tela de cadastros.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastros na interface.
+        """
         self.QtStack.setCurrentIndex(7)
     
     def abrirCadastroRecep(self):
+        """
+        Abre a tela de cadastro de recepcionista.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastro de recepcionista na interface.
+        """
         self.QtStack.setCurrentIndex(8)
     
     def abrirCadastroMed(self):
+        """
+        Abre a tela de cadastro de medico.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastro de medico na interface.
+        """
         self.QtStack.setCurrentIndex(9)
     
     def abrirCadastroAdmin(self):
+        """
+        Abre a tela de cadastro de administrador.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de cadastro de administrador na interface.
+        """
         self.QtStack.setCurrentIndex(10)
     
     def abrirAtendimento(self):
+        """
+        Abre a tela de atendimento.
+
+        Este metodo altera o indice da pilha de widgets para exibir a tela de atendimento na interface.
+        """
         self.QtStack.setCurrentIndex(11)
     
     def abrirAddGuiche(self):
+        """
+        Abre a tela de adicionar guiche.
+
+        Este metodo altera o indice do widget stack para exibir a tela de adicionar guiche na interface.
+        """
         self.QtStack.setCurrentIndex(12)
     
     def abrirfinalizarAtendimento(self):  
+        """
+        Abre a tela de finalizar atendimento.
+
+        Este metodo altera o indice do widget stack para exibir a tela de finalizar atendimento na interface.
+        """
         self.QtStack.setCurrentIndex(13)
     
     def abrirativarGuiche(self):
+        """
+        Abre a tela de ativar guiche.
+
+        Este metodo altera o indice do widget stack para exibir a tela de ativar guiche na interface.
+        """
         self.QtStack.setCurrentIndex(14)
     
     def abrirdesativaGuiche(self):
+        """
+        Abre a tela de desativar guiche.
+
+        Este metodo altera o indice do widget stack para exibir a tela de desativar guiche na interface.
+        """
         self.QtStack.setCurrentIndex(15)
 
     def abrirImpressao(self):
+        """
+        Abre a tela de impressao.
+
+        Este metodo altera o indice do widget stack para exibir a tela de impressao na interface.
+        """
         self.QtStack.setCurrentIndex(16)
 
     def abrirImpRecep(self):
+        """
+        Abre a tela de impressao para recepcionista.
+
+        Este metodo altera o indice do widget stack para exibir a tela de impressao para recepcionista na interface.
+        """
         self.QtStack.setCurrentIndex(17)
     
     def abrirImpMed(self):
-        self.QtStack.setCurrentIndex(18)
+        """
+        Abre a tela de impressao para medico.
 
-    def abrirFunc(self):
-        self.QtStack.setCurrentIndex(19)
+        Este metodo altera o indice do widget stack para exibir a tela de impressao para medico na interface.
+        """
+        self.QtStack.setCurrentIndex(18)
     
     def abrirConsulta(self):
+        """
+        Abre a tela de consulta.
+
+        Este metodo altera o indice do widget stack para exibir a tela de consulta na interface.
+        """
         self.QtStack.setCurrentIndex(20)
+
     
     def abrirRealizarConsult(self):
+        """
+        Abre a tela de realizacao de consulta.
+
+        Este metodo altera o indice do widget stack para exibir a tela de realizacao de consulta na interface.
+        Alem disso, envia uma mensagem ao servidor solicitando os dados necessarios para preencher os campos da tela.
+        Os dados recebidos do servidor sao utilizados para preencher o campo Recepcionista e a lista suspensa de Medico.
+        """
         self.QtStack.setCurrentIndex(21)
         menssagem =  f'logrecp'
         cliente_socket.send(menssagem.encode())
@@ -1009,42 +1581,96 @@ class Main(QMainWindow, Ui_main):
         recebida = cliente_socket.recv(1024).decode().split(",")
         print('recebida:',recebida)
         self.realizar_consulta.lineEdit_10.setText(recebida[0])
-        self.realizar_consulta.comboBox.addItem("Escolha uma Opção")
-        for dado in recebida[1:]:
-            self.realizar_consulta.comboBox.addItem(dado)   
-        self.realizar_consulta.comboBox.currentIndexChanged.connect(self.realizarConsultaAA) 
+
+        #self.realizar_consulta.comboBox.setCurrentText("Escolha uma Opção")
+        if self.realizar_consulta.comboBox.findText("Escolha uma Opção") == -1:
+            self.realizar_consulta.comboBox.insertItem(0, "Escolha uma Opção")
+            self.realizar_consulta.comboBox.setItemText(0, "Escolha uma Opção")
+            self.realizar_consulta.comboBox.setItemData(0, QtGui.QColor(QtCore.Qt.gray), QtCore.Qt.TextColorRole)  # Opcional: Definir cor cinza para o texto informativo
+            for dado in recebida[1:]:
+                if self.realizar_consulta.comboBox.findText(dado) == -1:
+                    self.realizar_consulta.comboBox.addItem(dado)  
+            self.realizar_consulta.comboBox.currentIndexChanged.connect(self.realizarConsultaAA) 
 
     def realizarConsultaAA(self):
+        """
+        Realiza uma consulta ao selecionar um medico na lista suspensa.
+
+        Este metodo e acionado quando uma opcao de medico e selecionada na lista suspensa da tela de realizacao de consulta.
+        Ele envia uma mensagem ao servidor solicitando os dados relacionados ao medico selecionado.
+        Os dados recebidos do servidor sao utilizados para preencher os campos "CRM" e "CPF do Medico" na interface.
+        """
         medico = self.realizar_consulta.comboBox.currentText()
-        print("Opção selecionada:", medico)
-        menssagem =  f'rconsult,{medico}'
-        cliente_socket.send(menssagem.encode())
-        print('menssagem enviada')
-        recebida = cliente_socket.recv(1024).decode().split(",")
-        print('recebida:',recebida)
-        if recebida[0] == '1':
-            crm = self.realizar_consulta.lineEdit_6.setText(recebida[2])
-            cpf_medico = self.realizar_consulta.lineEdit_9.setText(recebida[1])
+        if self.realizar_consulta.comboBox.currentIndex() == 0:
+             QtWidgets.QMessageBox.warning(None, "interface_grafica", "Selecione um medico para concluir o cadastro da consulta")
+        else:
+            print("Opção selecionada:", medico)
+            menssagem =  f'rconsult,{medico}'
+            cliente_socket.send(menssagem.encode())
+            print('menssagem enviada')
+            recebida = cliente_socket.recv(1024).decode().split(",")
+            print('recebida:',recebida)
+            if recebida[0] == '1':
+                crm = self.realizar_consulta.lineEdit_6.setText(recebida[2])
+                cpf_medico = self.realizar_consulta.lineEdit_9.setText(recebida[1])
+
 
     def abrirExcluirConsult(self):
+        """
+        Abre a tela de exclusao de consulta.
+
+        Este metodo altera o indice do widget stack para exibir a tela de exclusao de consulta na interface.
+        """
         self.QtStack.setCurrentIndex(22)
         
     def abrirTipoConsult(self):
+        """
+        Abre a tela de verificacao do tipo de consulta.
+
+        Este metodo altera o indice do widget stack para exibir a tela de verificacao do tipo de consulta na interface.
+        """
         self.QtStack.setCurrentIndex(23)
 
     def abrirImpPac(self):
+        """
+        Abre a tela de impressao de informacoes do paciente.
+
+        Este metodo altera o indice do widget stack para exibir a tela de impressao de informacoes do paciente na interface.
+        """
         self.QtStack.setCurrentIndex(24)
 
     def abrirExcluirPac(self):
+        """
+        Abre a tela de exclusao de paciente.
+
+        Este metodo altera o indice do widget stack para exibir a tela de exclusao de paciente na interface.
+        """
         self.QtStack.setCurrentIndex(25)
 
     def abrirExcluirGuiche(self):
+        """
+        Abre a tela de exclusao de guiche.
+
+        Este metodo altera o indice do widget stack para exibir a tela de exclusao de guiche na interface.
+        """
         self.QtStack.setCurrentIndex(26)
     
     def abrirAtualizarCons(self):
+        """
+        Abre a tela de atualizacao de consulta.
+
+        Este metodo altera o indice do widget stack para exibir a tela de atualizacao de consulta na interface.
+        """
         self.QtStack.setCurrentIndex(27)
 
     def abrirListaPaciente(self):
+        """
+        Abre a tela de lista de pacientes.
+
+        Este metodo altera o indice do widget stack para exibir a tela de lista de pacientes na interface.
+        Limpa a lista de pacientes existente e solicita ao servidor a lista atualizada de pacientes.
+        Os pacientes recebidos sao adicionados a lista de pacientes da interface.
+        """
         self.QtStack.setCurrentIndex(28)
         self.lista_pacientes.listWidget.clear()
         menssagem =  f'listapacientes'
@@ -1055,9 +1681,20 @@ class Main(QMainWindow, Ui_main):
             self.lista_pacientes.listWidget.addItem(str(item))
         
     def abrirLoginAdmin(self):
+        """
+        Abre a tela de login do administrador.
+
+        Este metodo altera o indice do widget stack para exibir a tela de login do administrador na interface.
+        """
         self.QtStack.setCurrentIndex(29)
 
     def sair(self): 
+        """
+        Fecha a aplicacao e encerra a conexao com o servidor.
+
+        Este metodo envia uma mensagem ao servidor indicando o encerramento da aplicacao.
+        Em seguida, fecha a conexao com o servidor e finaliza a execucao do programa.
+        """
         menssagem =  f'sair'
         cliente_socket.send(menssagem.encode())
         print('menssagem enviada')
@@ -1067,15 +1704,35 @@ class Main(QMainWindow, Ui_main):
             return exit()
 
     def voltarLogin(self):
+        """
+        Volta para a tela de login.
+
+        Este metodo altera o indice do widget stack para exibir a tela de login na interface.
+        """
         self.QtStack.setCurrentIndex(0)
 
     def voltarLoginMedico(self):
+        """
+        Volta para a tela de login do medico.
+
+        Este metodo altera o indice do widget stack para exibir a tela de login do medico na interface.
+        """
         self.QtStack.setCurrentIndex(1)
 
     def voltarLoginRecep(self):
+        """
+        Volta para a tela de login do recepcionista.
+
+        Este metodo altera o indice do widget stack para exibir a tela de login do recepcionista na interface.
+        """
         self.QtStack.setCurrentIndex(2)
     
     def voltarCadastros(self):
+        """
+        Volta para a tela de cadastros.
+
+        Este metodo altera o indice do widget stack para exibir a tela de cadastros na interface.
+        """
         self.QtStack.setCurrentIndex(7)
 
 if __name__ == "__main__":

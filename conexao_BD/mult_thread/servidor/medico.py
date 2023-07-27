@@ -2,18 +2,52 @@ from funcionario import Funcionario
 
 class Medico(Funcionario):
     """
-    A classe do médico recebe como parâmetros os dados do médico e uma lista de pacientes que irão ser atendidos por ele durante o dia
-    #Parâmetros utilizados#
-        cpf: str
-        nome: str
-        telefone: str
-        dt_nasc: str
-        especialidade: str
-        hr_atendimento: str
-        crm: int
-        lista_pacientes: list
+    Representa um médico, que herda da classe Funcionario.
+
+    Attributes
+    ---------
+    cpf : str
+        CPF do medico.
+    nome : str
+        Nome do medico.
+    telefone : str 
+        Numero de telefone do medico.
+    dt_nasc : str
+        Data de nascimento do medico.
+    email : str
+        Endereco de e-mail do medico.
+    especialidade : str
+        Especialidade do medico.
+    hr_atendimento : str
+        Hora de atendimento do medico
+    crm : int 
+        CRM do medico
+    senha : str
+        senha do medico 
     """
     def __init__(self, cpf, nome, telefone, dt_nasc, email, especialidade, hr_atendimento, crm,senha):
+        """
+        Paramethers
+        -----------
+        cpf : str
+            CPF do medico.
+        nome : str
+            Nome do medico.
+        telefone : str 
+            Numero de telefone do medico.
+        dt_nasc : str
+            Data de nascimento do medico.
+        email : str
+            Endereco de e-mail do medico.
+        especialidade : str
+            Especialidade do medico.
+        hr_atendimento : str
+            Hora de atendimento do medico
+        crm : int 
+            CRM do medico
+        senha : str
+            senha do medico 
+        """
         super().__init__(cpf, nome, telefone, dt_nasc, email)
         self._especialidade = especialidade
         self._hr_atendimento = hr_atendimento

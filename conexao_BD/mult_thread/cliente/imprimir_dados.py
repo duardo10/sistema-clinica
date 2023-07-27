@@ -12,7 +12,45 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ImpDados(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Impressão de Dados.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout : QtWidgets.QVBoxLayout
+        Layout vertical para os botoes.
+    pushButton : QtWidgets.QPushButton
+        Botao para imprimir recepcionistas.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para imprimir medicos.
+    pushButton_4 : QtWidgets.QPushButton
+        Botao para voltar.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -115,6 +153,14 @@ class ImpDados(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "IMPRIMIR DADOS"))

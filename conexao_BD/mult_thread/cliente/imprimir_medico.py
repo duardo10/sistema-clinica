@@ -12,7 +12,87 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ImpMed(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Impressão de Medico.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label_3 : QtWidgets.QLabel
+        Geometria do rotulo de busca.
+    line_2 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    pushButton : QtWidgets.QPushButton
+        Botao de busca.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    lineEdit_5 : QtWidgets.QLineEdit
+        Geometria do campo de entrada de CPF.
+    label_bus_cpf : QtWidgets.QLabel
+        Geometria do rotulo de CPF.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para voltar.
+    label_13 : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_5 : QtWidgets.QVBoxLayout
+        Layout vertical para os rotulos.
+    label_19 : QtWidgets.QLabel
+        Rotulo de nome.
+    label_20 : QtWidgets.QLabel
+        Rotulo de telefone.
+    label_21 : QtWidgets.QLabel
+        Rotulo de data de nascimento.
+    label_22 : QtWidgets.QLabel
+        Rotulo de email.
+    label_23 : QtWidgets.QLabel
+        Rotulo de especialidade.
+    label_24 : QtWidgets.QLabel
+        Rotulo de hora de atendimento.
+    label_25 : QtWidgets.QLabel
+        Rotulo de CRM.
+    label_18 : QtWidgets.QLabel
+        Rotulo de senha.
+    layoutWidget_2 : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_6 : QtWidgets.QVBoxLayout
+        Layout vertical para os campos de entrada.
+    lineEdit_16 : QtWidgets.QLineEdit
+        Campo de entrada de nome.
+    lineEdit_17 : QtWidgets.QLineEdit
+        Campo de entrada de telefone.
+    lineEdit_18 : QtWidgets.QLineEdit
+        Campo de entrada de data de nascimento.
+    lineEdit_19 : QtWidgets.QLineEdit
+        Campo de entrada de email.
+    lineEdit_20 : QtWidgets.QLineEdit
+        Campo de entrada de especialidade.
+    lineEdit_21 : QtWidgets.QLineEdit
+        Campo de entrada de hora de atendimento.
+    lineEdit_22 : QtWidgets.QLineEdit
+        Campo de entrada de CRM.
+    lineEdit_24 : QtWidgets.QLineEdit
+        Campo de entrada de senha.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -187,6 +267,14 @@ class ImpMed(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_3.setText(_translate("MainWindow", "BUSCA"))

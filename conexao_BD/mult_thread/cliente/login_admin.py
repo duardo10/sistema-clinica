@@ -12,7 +12,62 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class LoginAdmin(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Login de Administrador.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    lineEdit : QtWidgets.QLineEdit
+        Campo de entrada para o CPF.
+    label_2 : QtWidgets.QLabel
+        Rotulo para o CPF.
+    label_3 : QtWidgets.QLabel
+        Rótulo para a senha.
+    lineEdit_2 : QtWidgets.QLineEdit
+        Campo de entrada para a senha.
+    pushButton : QtWidgets.QPushButton
+        Botao para fazer login.
+    line_2 : QtWidgets.QFrame
+        Linha vertical separadora.
+    line_3 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    line_4 : QtWidgets.QFrame
+        Linha vertical separadora.
+    label_4 : QtWidgets.QLabel
+        Rotulo de instrucao para o caso do administrador nao estar cadastrado.
+    label_5 : QtWidgets.QLabel
+        Rotulo vazio para espacamento.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para cadastrar.
+    pushButton_3 : QtWidgets.QPushButton
+        Botao para voltar.
+    line_5 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    line_6 : QtWidgets.QFrame
+        Linha horizontal separadora.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         font = QtGui.QFont()
@@ -155,6 +210,14 @@ class LoginAdmin(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "LOGIN ADMIN"))

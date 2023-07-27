@@ -12,7 +12,77 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ImpRecp(object):
+    """
+    Classe responsavel por configurar a interface grafica da janela de Impressão de Recepcionista.
+
+    Attributes
+    ----------
+    centralwidget : QtWidgets.QWidget
+        Widget central da janela.
+    label_3 : QtWidgets.QLabel
+        Rotulo de busca.
+    line_2 : QtWidgets.QFrame
+        Linha horizontal separadora.
+    pushButton : QtWidgets.QPushButton
+        Botao de busca.
+    line : QtWidgets.QFrame
+        Linha horizontal separadora.
+    lineEdit_5 : QtWidgets.QLineEdit
+        Campo de entrada de CPF.
+    label_bus_cpf : QtWidgets.QLabel
+        Rotulo do CPF.
+    pushButton_2 : QtWidgets.QPushButton
+        Botao para voltar.
+    label : QtWidgets.QLabel
+        Geometria do rotulo.
+    layoutWidget : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_3 : QtWidgets.QVBoxLayout
+        Layout vertical para os campos de entrada.
+    lineEdit_6 : QtWidgets.QLineEdit
+        Campo de entrada de nome.
+    lineEdit_7 : QtWidgets.QLineEdit
+        Campo de entrada de telefone.
+    lineEdit_8 : QtWidgets.QLineEdit
+        Campo de entrada de data de nascimento.
+    lineEdit_10 : QtWidgets.QLineEdit
+        Campo de entrada de email.
+    lineEdit_11 : QtWidgets.QLineEdit
+        Campo de entrada de senha.
+    layoutWidget_2 : QtWidgets.QWidget
+        Widget para o layout vertical.
+    verticalLayout_4 : QtWidgets.QVBoxLayout
+        Layout vertical para os rotulos.
+    label_9 : QtWidgets.QLabel
+        Rotulo de nome.
+    label_10 : QtWidgets.QLabel
+        Rotulo de telefone.
+    label_11 : QtWidgets.QLabel
+        Rotulo de data de nascimento.
+    label_12 : QtWidgets.QLabel
+        Rotulo de email.
+    label_8 : QtWidgets.QLabel
+        Rotulo de senha.
+    label_13 : QtWidgets.QLabel
+        Geometria do rotulo de titulo da janela.
+
+    Methods
+    ------
+    setupUi(MainWindow) : QtWidgets.QMainWindow
+        Referencia para a janela principal
+    retranslateUi(MainWindow) : QtWidgets.QMainWindow
+        Traduz os textos da interface para o idioma selecionado.
+    """
+    
     def setupUi(self, MainWindow):
+        """
+        Configura a interface grafica da janela principal.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 599)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -163,6 +233,14 @@ class ImpRecp(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """
+        Traduz os textos da interface para o idioma selecionado.
+
+        Parameters
+        ----------
+        MainWindow : QtWidgets.QMainWindow
+             Referencia para a janela principal
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_3.setText(_translate("MainWindow", "BUSCA"))
