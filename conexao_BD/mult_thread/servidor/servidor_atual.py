@@ -1209,7 +1209,7 @@ class Usuario(threading.Thread):
     
 
 if __name__ == '__main__':
-    host = '10.180.44.224'
+    host = '10.0.0.105'
     port = 8020
     addr = ((host, port))
     serv_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)

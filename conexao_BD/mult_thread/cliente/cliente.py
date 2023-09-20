@@ -31,7 +31,7 @@ from login_admin import LoginAdmin
 from cadastrar_admin import CadastrarAdmin
 
 import socket
-ip = '10.180.44.224'
+ip = '10.0.0.105'
 port = 8020
 addr = ((ip, port))
 cliente_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)

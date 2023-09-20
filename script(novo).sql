@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`guiche` (
   `senha` INT NOT NULL,
   `paciente_cpf` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`id_guiche`),
-  INDEX `fk_guiche_paciente1_idx` (`paciente_cpf` ASC) VISIBLE,
+  INDEX `fk_guiche_paciente1_idx` (`paciente_cpf` ASC),
   CONSTRAINT `fk_guiche_paciente1`
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `mydb`.`paciente` (`cpf`)
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`recepcionista` (
   `email` VARCHAR(45) NOT NULL,
   `guiche_id_guiche` INT NOT NULL,
   PRIMARY KEY (`cpf`),
-  INDEX `fk_recepcionista_guiche1_idx` (`guiche_id_guiche` ASC) VISIBLE,
+  INDEX `fk_recepcionista_guiche1_idx` (`guiche_id_guiche` ASC),
   CONSTRAINT `fk_recepcionista_guiche1`
     FOREIGN KEY (`guiche_id_guiche`)
     REFERENCES `mydb`.`guiche` (`id_guiche`)
@@ -116,9 +116,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`consulta` (
   `recepcionista_cpf` VARCHAR(11) NOT NULL,
   `lista_pacientes_cpf` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`cpf_paciente`),
-  INDEX `fk_consulta_medico1_idx` (`medico_cpf` ASC) VISIBLE,
-  INDEX `fk_consulta_recepcionista1_idx` (`recepcionista_cpf` ASC) VISIBLE,
-  INDEX `fk_consulta_lista_pacientes1_idx` (`lista_pacientes_cpf` ASC) VISIBLE,
+  INDEX `fk_consulta_medico1_idx` (`medico_cpf` ASC) ,
+  INDEX `fk_consulta_recepcionista1_idx` (`recepcionista_cpf` ASC) ,
+  INDEX `fk_consulta_lista_pacientes1_idx` (`lista_pacientes_cpf` ASC) ,
   CONSTRAINT `fk_consulta_medico1`
     FOREIGN KEY (`medico_cpf`)
     REFERENCES `mydb`.`medico` (`cpf`)
@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`paciente` (
   `medico_cpf` VARCHAR(11) NOT NULL,
   `consulta_cpf_paciente` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`cpf`),
-  INDEX `fk_paciente_medico_idx` (`medico_cpf` ASC) VISIBLE,
-  INDEX `fk_paciente_consulta1_idx` (`consulta_cpf_paciente` ASC) VISIBLE,
+  INDEX `fk_paciente_medico_idx` (`medico_cpf` ASC),
+  INDEX `fk_paciente_consulta1_idx` (`consulta_cpf_paciente` ASC),
   CONSTRAINT `fk_paciente_medico`
     FOREIGN KEY (`medico_cpf`)
     REFERENCES `mydb`.`medico` (`cpf`)
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`funcionarios` (
   `email` VARCHAR(45) NOT NULL,
   `recepcionista_cpf` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`cpf_funcionario`),
-  INDEX `fk_funcionarios_recepcionista1_idx` (`recepcionista_cpf` ASC) VISIBLE,
+  INDEX `fk_funcionarios_recepcionista1_idx` (`recepcionista_cpf` ASC),
   CONSTRAINT `fk_funcionarios_recepcionista1`
     FOREIGN KEY (`recepcionista_cpf`)
     REFERENCES `mydb`.`recepcionista` (`cpf`)
